@@ -10,7 +10,7 @@ LIBDIR ?= $(C7ROOT)/lib
 INCDIR ?= $(C7ROOT)/include
 PY3DIR ?= $(C7ROOT)/python3
 
-TMPDIR ?= $(HOME)/tmp/$(CXX)
+TMPDIR ?= $(HOME)/tmp/c7xxtest/$(CXX)
 OBJDIR  = $(TMPDIR)/obj
 DBGDIR  = $(TMPDIR)/gdb
 BINDIR  = $(TMPDIR)/bin
@@ -107,7 +107,7 @@ depend:
 
 .PHONY: init
 init:
-	@mkdir -p $(TMPDIR) $(BINDIR) $(OBJDIR)/test.d $(sort $(dir $(LIBOBJ)))
+	@mkdir -p $(TMPDIR) $(BINDIR) $(OBJDIR) $(sort $(dir $(LIBOBJ)))
 
 .PHONY: clean
 clean:
