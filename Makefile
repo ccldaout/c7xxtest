@@ -21,6 +21,10 @@ CXXFLAGS_ = -std=$(CXX_STD) -I$(INCDIR) -Wall -Werror
  LDFLAGS_ = -L$(LIBDIR) -Wl,-rpath,$(LIBDIR)
   LDLIBS_ = -lc7++ -lpthread
 
+ifeq "$(wildcard $(C7ROOT))" ""
+  $(error "Please make C7ROOT=<root of libc7++>")
+endif
+
 ifeq "$(wildcard .DEBUG)" ""
   CXXFLAGS_ += -O3
   ECHO_BEG = "\\x1b[32m"
