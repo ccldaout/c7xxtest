@@ -216,11 +216,13 @@ static void test_mask()
 #define NG (1UL<<1)
 #define USER (1U<<2)
 #define SYS (1U<<3)
+#define FIN (1U<<4)
 
-    p_("OK  : %{b4}", OK);
-    p_("NG  : %{b4}", NG);
-    p_("USER: %{b4}", USER);
-    p_("SYS : %{b4}", SYS);
+    p_("OK  : %{b5}", OK);
+    p_("NG  : %{b5}", NG);
+    p_("USER: %{b5}", USER);
+    p_("SYS : %{b5}", SYS);
+    p_("FIN : %{b5}", FIN);
 
     c7::thread::mask mask(0);
 
@@ -228,10 +230,27 @@ static void test_mask()
     th.target([&]() {
 	    p_("thread wait_all(USER|SYS) ...");
 	    auto m = mask.wait_all(USER|SYS, 0);
-	    p_("thread wait: ret:%{b4} mask:%{b4}", m, mask.get());
+	    p_("thread wait: ret:%{b5} mask:%{b5}", m, mask.get());
+
 	    c7::sleep_us(1500000);
 	    p_("thread change: on:NG, off:USER");
 	    mask.change(NG, USER);
+
+	    p_("thread wait_all_or(USER|SYS, FIN) ...");
+	    m = mask.wait_all_or(USER|SYS, FIN, 0);
+	    p_("thread wait_all_or: ret:%{b5} mask:%{b5}", m, mask.get());
+
+	    c7::sleep_us(1500000);
+	    p_("thread change: on:OK, off:SYS");
+	    mask.change(OK, SYS);
+
+	    p_("thread wait_all_or(USER|SYS, FIN) ...");
+	    m = mask.wait_all_or(USER|SYS, FIN, 0);
+	    p_("thread wait_all_or: ret:%{b5} mask:%{b5}", m, mask.get());
+
+	    c7::sleep_us(1500000);
+	    p_("thread change: on:OK, off:SYS");
+	    mask.change(NG, 0);
 	});
     th.start();
 
@@ -244,7 +263,21 @@ static void test_mask()
 
     p_("main wait_any(OK|NG), claer:OK|NG:");
     auto m = mask.wait_any(OK|NG, OK|NG);
-    p_("main wait_any: ret:%{b4} mask:%{b4}", m, mask.get());
+    p_("main wait_any: ret:%{b5} mask:%{b5}", m, mask.get());
+
+    p_("main on USER");
+    mask.on(USER);
+    
+    p_("main wait_any(OK|NG), claer:OK|NG:");
+    m = mask.wait_any(OK|NG, OK|NG);
+    p_("main wait_any: ret:%{b5} mask:%{b5}", m, mask.get());
+
+    p_("main on FIN");
+    mask.on(FIN);
+
+    p_("main wait_any(OK|NG), claer:OK|NG:");
+    m = mask.wait_any(OK|NG, OK|NG);
+    p_("main wait_any: ret:%{b5} mask:%{b5}", m, mask.get());
 
     th.join();
 
@@ -252,6 +285,7 @@ static void test_mask()
 #undef NG
 #undef USER
 #undef SYS
+#undef FIN
 }
 
 static void test_rendezvous()
