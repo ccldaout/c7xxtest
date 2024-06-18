@@ -938,6 +938,16 @@ $(BINDIR)/c7thread_1: c7thread_1.cpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7thread/mutex.hpp ../c7xxdev/c7thread/condvar.hpp \
  $(INCDIR)/c7thread/thread.hpp ../c7xxdev/c7utils.hpp \
  $(INCDIR)/c7result.hpp
+$(BINDIR)/c7thread_dp: c7thread_dp.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp ../c7xxdev/c7common.hpp \
+ $(INCDIR)/_c7version.hpp ../c7xxdev/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp ../c7xxdev/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp ../c7xxdev/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp ../c7xxdev/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp ../c7xxdev/c7format/format_r3.hpp \
+ $(INCDIR)/c7thread/datapara.hpp ../c7xxdev/c7thread/thread.hpp \
+ $(INCDIR)/c7utils.hpp ../c7xxdev/c7thread/mask.hpp \
+ $(INCDIR)/c7thread/condvar.hpp
 $(BINDIR)/c7thread_jq: c7thread_jq.cpp $(INCDIR)/c7thread/jobque.hpp \
  $(INCDIR)/c7common.hpp ../c7xxdev/_c7version.hpp \
  $(INCDIR)/c7thread/_queue.hpp ../c7xxdev/c7result.hpp \

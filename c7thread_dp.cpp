@@ -7,7 +7,6 @@ namespace dp = c7::thread::datapara;
 
 struct in_data {
     int value;
-    char pad[1024*1024/5];
 };
 
 class my_calcu: public dp::driver<my_calcu, in_data, std::string> {
@@ -35,9 +34,9 @@ int main()
     my_calcu cal;
 
     dp::configure cfg;
-    cfg.n_thread = 3;
     cfg.mt_threshold = 10;
-    cfg.bufsize_mb = 1;
+    cfg.n_thread = 3;
+    cfg.n_item_per_thread = 7;
 
     cal.init(cfg);
     cal.start_round();
