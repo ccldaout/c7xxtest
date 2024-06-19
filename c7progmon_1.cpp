@@ -14,7 +14,11 @@ struct my_data {
 
 class my_datamon: public c7::progress_monitor<my_data> {
 protected:
-    void check(uint64_t not_updated_count, pid_t parent_pid, my_data& data) override {
+    void monitoring_init() override {
+	p_("my_datamon: monitoring started");
+    }
+
+    void monitoring_check(uint64_t not_updated_count, pid_t parent_pid, my_data& data) override {
 	p_("--- #not_updated:%{}, parent:%{}, counter:%{} ---",
 	   not_updated_count, parent_pid, data.counter);
     }
@@ -23,7 +27,11 @@ protected:
 
 class my_datamon2: public c7::progress_monitor<my_data> {
 protected:
-    void check(uint64_t not_updated_count, pid_t parent_pid, my_data& data) override {
+    void monitoring_init() override {
+	p_("my_datamon2: monitoring started");
+    }
+
+    void monitoring_check(uint64_t not_updated_count, pid_t parent_pid, my_data& data) override {
 	p_("--- #not_updated:%{}, parent:%{}, counter:%{} ---",
 	   not_updated_count, parent_pid, data.counter);
 	if (not_updated_count == 4) {
@@ -36,7 +44,11 @@ protected:
 
 class my_voidmon: public c7::progress_monitor<void> {
 protected:
-    void check(uint64_t not_updated_count, pid_t parent_pid) override {
+    void monitoring_init() override {
+	p_("my_voidmon: monitoring started");
+    }
+
+    void monitoring_check(uint64_t not_updated_count, pid_t parent_pid) override {
 	p_("*** #not_updated:%{}, parent:%{} ***",
 	   not_updated_count, parent_pid);
     }
