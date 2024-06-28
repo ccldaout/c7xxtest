@@ -202,8 +202,8 @@ int main()
     MyProgress prg;
     prg.start(total, itv_ms);
 
-    for (auto us: c7::nseq::random_uniform_dist(0, 100UL, 200UL)) {
-	c7::sleep_us(300UL + us);
+    for (auto us: c7::nseq::random_uniform_dist(0, 100UL, 500UL)) {
+	c7::sleep_us(500UL + us);
 	prg.count_up();
 	if (--total == 0) {
 	    break;
