@@ -21,6 +21,8 @@ struct prog_data_t {
 class MyProgress: public c7::progress_monitor<prog_data_t> {
     using base_type = c7::progress_monitor<prog_data_t>;
 public:
+    ~MyProgress();
+
     void start(size_t total, c7::usec_t interval_ms);
     void count_up();
     void stop();
@@ -30,7 +32,7 @@ private:
     std::string item_name_;
 
     // 子プロセス側
-    int tty_fd_;
+    int tty_fd_ = C7_SYSERR;
 
     // 次の二つは c7::progress_monitor<> からの要件
     void monitoring_init() override;
@@ -40,6 +42,12 @@ private:
 
     void print(prog_data_t& data, bool last);
 };
+
+
+MyProgress::~MyProgress()
+{
+    ::close(tty_fd_);
+}
 
 
 // [親プロセスで呼ぶ]
@@ -54,6 +62,15 @@ MyProgress::start(size_t total, c7::usec_t interval_ms)
     // 進捗率の右側に表示するアイテム名
     // 現在ディレクトリを取得していることに特に意味はない (ただのサンプルプログラム)。
     item_name_ = c7::path::cwd().value(std::string{"Oops! c7::path::cwd() failed"});
+
+    // 標準出力がリダイレクトされている可能性もあるので端末かどうかをチェックし、
+    // 端末でなければ /dev/tty を直接開ける。端末だった場合、デストラクタ内での
+    // クローズ判定が面倒くさくなるので dup で複製しておく。
+    if (isatty(tty_fd_)) {
+	tty_fd_ = ::dup(1);
+    } else {
+	tty_fd_ = ::open("/dev/tty", O_WRONLY);
+    }
 
     // バックグラウンドモニタリングループを開始する
     base_type::start_monitor(interval_ms);
@@ -73,6 +90,10 @@ void
 MyProgress::stop()
 {
     base_type::stop_monitor();
+
+    // 最後の count_up() 後に monitoring_check() が呼ばれたかどうかは
+    // わからないので、親プロセス側で最後の出力を受け持つ。
+    print(base_type::update(), true);
 }
 
 
@@ -101,16 +122,9 @@ static void sig_winch(int)
 void
 MyProgress::monitoring_init()
 {
-    // 基底クラスの monitoring_init は 3..256 までの記述子をクローズする。
-    base_type::monitoring_init();
-
-    // 標準出力がリダイレクトされている可能性もあるので端末かチェックし、
-    // 端末でなければ /dev/tty を直接開ける。
-    if (isatty(1)) {
-	tty_fd_ = 1;
-    } else {
-	tty_fd_ = ::open("/dev/tty", O_WRONLY);
-    }
+    // 基底クラスの monitoring_init は 3..256 までの記述子をクローズするため、
+    // このサンプルでは呼ばない。
+    //base_type::monitoring_init();
 
     // 端末エミュレータのウィンドウサイズが変更された時のシグナルハンドラ
     struct sigaction sa;
@@ -188,8 +202,8 @@ int main()
     MyProgress prg;
     prg.start(total, itv_ms);
 
-    for (auto us: c7::nseq::random_uniform_dist(0, 100UL, 500UL)) {
-	c7::sleep_us(1000UL + us);
+    for (auto us: c7::nseq::random_uniform_dist(0, 100UL, 200UL)) {
+	c7::sleep_us(300UL + us);
 	prg.count_up();
 	if (--total == 0) {
 	    break;
