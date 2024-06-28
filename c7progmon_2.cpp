@@ -30,8 +30,6 @@ public:
 private:
     // 親側で設定
     std::string item_name_;
-
-    // 子プロセス側
     int tty_fd_ = C7_SYSERR;
 
     // 次の二つは c7::progress_monitor<> からの要件
