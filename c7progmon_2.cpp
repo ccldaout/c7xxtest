@@ -182,14 +182,14 @@ using c7::P_;
 
 int main()
 {
-    size_t total = 1000000000UL;
+    size_t total = 10000UL;
     constexpr c7::usec_t itv_ms = 200;
 
     MyProgress prg;
     prg.start(total, itv_ms);
 
     for (auto us: c7::nseq::random_uniform_dist(0, 100UL, 500UL)) {
-	c7::sleep_us(20000UL + us);
+	c7::sleep_us(1000UL + us);
 	prg.count_up();
 	if (--total == 0) {
 	    break;
