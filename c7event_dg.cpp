@@ -18,6 +18,9 @@ class main_service: public delegate<service_interface<my_msgbuf>> {
 
 class service_1: public delegate<service_interface<my_msgbuf>> {
 public:
+    ~service_1() {
+	p_("~service_1");
+    }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
 	p_("service_1");
     }
@@ -25,6 +28,9 @@ public:
 
 class service_2: public delegate<service_interface<my_msgbuf>> {
 public:
+    ~service_2() {
+	p_("~service_2");
+    }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
 	p_("service_2");
     }
@@ -32,6 +38,9 @@ public:
 
 class service_3: public delegate<service_interface<my_msgbuf>> {
 public:
+    ~service_3() {
+	p_("~service_3");
+    }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
 	p_("service_3");
     }
@@ -39,8 +48,21 @@ public:
 
 class service_4: public delegate<service_interface<my_msgbuf>> {
 public:
+    ~service_4() {
+	p_("~service_4");
+    }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
 	p_("service_4");
+    }
+};
+
+class service_5: public delegate<service_interface<my_msgbuf>> {
+public:
+    ~service_5() {
+	p_("~service_5");
+    }
+    void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
+	p_("service_5");
     }
 };
 
@@ -54,14 +76,22 @@ int main()
     auto svc2 = std::make_shared<service_2>();
     auto svc3 = std::make_shared<service_3>();
     auto svc4 = std::make_shared<service_4>();
+    auto svc5 = std::make_shared<service_5>();
 
     socket_port port;
     monitor mon;
 
     svc.ext_delegate += svc2;
     svc.ext_delegate.install(10, svc1);
-    svc.ext_delegate.install(-10, svc4);
+    svc.ext_delegate.install(-10, svc5);
     svc.ext_delegate += svc3;
+    svc.ext_delegate += svc4;
 
     svc.on_message(mon, port, msg);
+
+    svc2 = nullptr;
+
+    svc.on_message(mon, port, msg);
+
+    p_("exit");
 }

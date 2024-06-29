@@ -501,6 +501,21 @@ $(BINDIR)/c7event_bs2: c7event_bs2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7socket.hpp ../c7xxdev/c7fd.hpp \
  $(INCDIR)/c7event/monitor.hpp ../c7xxdev/c7thread/mutex.hpp \
  $(INCDIR)/c7utils.hpp ../c7xxdev/c7thread/thread.hpp
+$(BINDIR)/c7event_dg: c7event_dg.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp ../c7xxdev/c7common.hpp \
+ $(INCDIR)/_c7version.hpp ../c7xxdev/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp ../c7xxdev/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp ../c7xxdev/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp ../c7xxdev/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp ../c7xxdev/c7format/format_r3.hpp \
+ $(INCDIR)/c7event/msgbuf_impl.hpp ../c7xxdev/c7event/msgbuf.hpp \
+ $(INCDIR)/c7event/iovec_proxy.hpp ../c7xxdev/c7slice.hpp \
+ $(INCDIR)/c7event/portgroup.hpp ../c7xxdev/c7event/port.hpp \
+ $(INCDIR)/c7socket.hpp ../c7xxdev/c7fd.hpp \
+ $(INCDIR)/c7event/shared_port.hpp ../c7xxdev/c7event/traits.hpp \
+ $(INCDIR)/c7thread/mutex.hpp ../c7xxdev/c7iters.hpp \
+ $(INCDIR)/c7utils.hpp ../c7xxdev/c7event/ext/delegate.hpp \
+ $(INCDIR)/c7event/service.hpp ../c7xxdev/c7event/monitor.hpp
 $(BINDIR)/c7event_disp: c7event_disp.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp ../c7xxdev/c7common.hpp \
  $(INCDIR)/_c7version.hpp ../c7xxdev/c7format.hpp \
@@ -647,6 +662,14 @@ $(BINDIR)/c7event_svc2: c7event_svc2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7event/receiver_impl.hpp \
  $(INCDIR)/c7event/connector_impl.hpp ../c7xxdev/c7event/connector.hpp \
  $(INCDIR)/c7event/timer.hpp ../c7xxdev/c7event/ext/attached.hpp
+$(BINDIR)/c7factory_1: c7factory_1.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp ../c7xxdev/c7common.hpp \
+ $(INCDIR)/_c7version.hpp ../c7xxdev/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp ../c7xxdev/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp ../c7xxdev/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp ../c7xxdev/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp ../c7xxdev/c7format/format_r3.hpp \
+ $(INCDIR)/c7factory.hpp
 $(BINDIR)/c7file_1: c7file_1.cpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7common.hpp ../c7xxdev/_c7version.hpp \
  $(INCDIR)/c7format/format_r1.hpp ../c7xxdev/c7defer.hpp \
@@ -782,6 +805,18 @@ $(BINDIR)/c7progmon_1: c7progmon_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7typefunc.hpp ../c7xxdev/c7strmbuf/strref.hpp \
  $(INCDIR)/c7format/format_r2.hpp ../c7xxdev/c7format/format_r3.hpp \
  $(INCDIR)/c7progmon.hpp ../c7xxdev/c7signal.hpp ../c7xxdev/c7utils.hpp
+$(BINDIR)/c7progmon_2: c7progmon_2.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp ../c7xxdev/c7common.hpp \
+ $(INCDIR)/_c7version.hpp ../c7xxdev/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp ../c7xxdev/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp ../c7xxdev/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp ../c7xxdev/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp ../c7xxdev/c7format/format_r3.hpp \
+ $(INCDIR)/c7path.hpp ../c7xxdev/c7string.hpp ../c7xxdev/c7coroutine.hpp \
+ $(INCDIR)/c7nseq/enumerate.hpp ../c7xxdev/c7nseq/_cmn.hpp \
+ $(INCDIR)/c7nseq/_iter_ops.hpp ../c7xxdev/c7nseq/head.hpp \
+ $(INCDIR)/c7progmon.hpp ../c7xxdev/c7signal.hpp ../c7xxdev/c7utils.hpp \
+ $(INCDIR)/c7nseq/random.hpp
 $(BINDIR)/c7rawbuf_1: c7rawbuf_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp ../c7xxdev/c7common.hpp \
  $(INCDIR)/_c7version.hpp ../c7xxdev/c7format.hpp \
