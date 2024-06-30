@@ -110,6 +110,12 @@ c7::generic_factory::factory<TaskInterface,
 			     DebugUnloadTask,
 			     DebugMoveTask> debug_factory;
 
+static
+c7::custom_factory::factory<TaskInterface,
+			    LoadConfig,
+			    UnloadConfig,
+			    MoveConfig> custom_factory;
+
 
 // テストコード
 
@@ -142,4 +148,10 @@ int main()
 
     p_("\ndebug_factory");
     test(&debug_factory);
+
+    p_("\ncustom factory");
+    custom_factory.set<LoadTask>();
+    custom_factory.set<DebugUnloadTask>();
+    custom_factory.set<MoveTask>();
+    test(&custom_factory);
 }
