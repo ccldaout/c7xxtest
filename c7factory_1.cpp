@@ -5,136 +5,92 @@
 using c7::p_;
 
 
-// Task §Œ√Íæ›¥ƒÏ•Ø•È•π
-struct TaskInterface {
-    virtual ~TaskInterface() {}
+// „Çø„Çπ„ÇØÊØé„ÅÆ„Ç§„É≥„Çø„Éº„Éï„Çß„Ç§„Çπ„ÇØ„É©„Çπ
+struct LoadTaskInterface {
+    virtual ~LoadTaskInterface() {}
+    virtual void run() = 0;
+};
+struct UnloadTaskInterface {
+    virtual ~UnloadTaskInterface() {}
+    virtual void run() = 0;
+};
+struct MoveTaskInterface {
+    virtual ~MoveTaskInterface() {}
     virtual void run() = 0;
 };
 
 
-// •™°º•–°º•Ì°º•…≤Ú∑Ë§À…¨Õ◊§ ∂Òæ›•≥•Û•’•£•∞•Ø•È•π
-struct LoadConfig {
-    std::string name;
-};
-struct UnloadConfig {
-    std::string name;
-};
-struct MoveConfig {
-    std::string name;
-};
-
-
-// ∂Òæ›•ø•π•Ø•Ø•È•π (1)
-class LoadTask: public TaskInterface {
+// ÂÖ∑Ë±°„Çø„Çπ„ÇØ„ÇØ„É©„Çπ (1)
+class StdLoadTask: public LoadTaskInterface {
 public:
-    using config_type = LoadConfig;
-    explicit LoadTask(const config_type& c) {
-	p_("LoadTask: %{}", c.name);
-    }
     void run() override {
 	p_("LoadTask::run()");
     }
 };
-class UnloadTask: public TaskInterface {
+class StdUnloadTask: public UnloadTaskInterface {
 public:
-    using config_type = UnloadConfig;
-    explicit UnloadTask(const config_type& c) {
-	p_("UnloadTask: %{}", c.name);
-    }
     void run() override {
 	p_("UnloadTask::run()");
     }
 };
-class MoveTask: public TaskInterface {
+class StdMoveTask: public MoveTaskInterface {
 public:
-    using config_type = MoveConfig;
-    explicit MoveTask(const config_type& c) {
-	p_("MoveTask: %{}", c.name);
-    }
     void run() override {
 	p_("MoveTask::run()");
     }
 };
 
 
-// ∂Òæ›•ø•π•Ø•Ø•È•π (2)
-class DebugLoadTask: public TaskInterface {
+// ÂÖ∑Ë±°„Çø„Çπ„ÇØ„ÇØ„É©„Çπ (2)
+class DebugLoadTask: public LoadTaskInterface {
 public:
-    using config_type = LoadConfig;
-    explicit DebugLoadTask(const config_type& c) {
-	p_("DebugLoadTask: %{}", c.name);
-    }
     void run() override {
 	p_("DebugLoadTask::run()");
     }
 };
-class DebugUnloadTask: public TaskInterface {
+class DebugUnloadTask: public UnloadTaskInterface {
 public:
-    using config_type = UnloadConfig;
-    explicit DebugUnloadTask(const config_type& c) {
-	p_("DebugUnloadTask: %{}", c.name);
-    }
     void run() override {
+	count_++;
 	p_("DebugUnloadTask::run()");
     }
+private:
+    int count_ = 0;
 };
-class DebugMoveTask: public TaskInterface {
+class DebugMoveTask: public MoveTaskInterface {
 public:
-    using config_type = MoveConfig;
-    explicit DebugMoveTask(const config_type& c) {
-	p_("DebugMoveTask: %{}", c.name);
-    }
     void run() override {
 	p_("DebugMoveTask::run()");
     }
 };
 
 
-// •’•°•Ø•»•Í°º (generic_factory §ÚÕ¯Õ—)
+// „Éï„Ç°„ÇØ„Éà„É™„Éº
 
 using FactoryInterface =
-    c7::generic_factory::interface<TaskInterface,
-				   LoadConfig,
-				   UnloadConfig,
-				   MoveConfig>;
+    c7::factory_type1::interface<LoadTaskInterface,
+				 UnloadTaskInterface,
+				 MoveTaskInterface>;
 
-static
-c7::generic_factory::factory<TaskInterface,
-			     LoadTask,
-			     UnloadTask,
-			     MoveTask> std_factory;
+using StdFactory =
+    c7::factory_type1::factory<FactoryInterface,
+			       StdLoadTask,
+			       StdUnloadTask,
+			       StdMoveTask>;
 
-static
-c7::generic_factory::factory<TaskInterface,
-			     DebugLoadTask,
-			     DebugUnloadTask,
-			     DebugMoveTask> debug_factory;
+using DebugFactory =
+    c7::factory_type1::factory<FactoryInterface,
+			       DebugLoadTask,
+			       DebugUnloadTask,
+			       DebugMoveTask>;
 
-static
-c7::custom_factory::factory<TaskInterface,
-			    LoadConfig,
-			    UnloadConfig,
-			    MoveConfig> custom_factory;
+// „ÉÜ„Çπ„Éà„Ç≥„Éº„Éâ
 
-
-// •∆•π•»•≥°º•…
-
-static void test(FactoryInterface *factory)
+static void test(const FactoryInterface *factory)
 {
-    std::shared_ptr<TaskInterface> tp1, tp2, tp3;
-
-    {
-	LoadConfig c{"load"};
-	tp1 = factory->make(c);
-    }
-    {
-	UnloadConfig c{"unload"};
-	tp2 = factory->make(c);
-    }
-    {
-	MoveConfig c{"move"};
-	tp3 = factory->make(c);
-    }
+    auto tp1 = factory->make<LoadTaskInterface>();
+    auto tp2 = factory->make<UnloadTaskInterface>();
+    auto tp3 = factory->make<MoveTaskInterface>();
 
     tp1->run();
     tp2->run();
@@ -143,15 +99,9 @@ static void test(FactoryInterface *factory)
 
 int main()
 {
-    p_("factory");
-    test(&std_factory);
-
-    p_("\ndebug_factory");
-    test(&debug_factory);
-
-    p_("\ncustom factory");
-    custom_factory.set<LoadTask>();
-    custom_factory.set<DebugUnloadTask>();
-    custom_factory.set<MoveTask>();
-    test(&custom_factory);
+    StdFactory sf;
+    test(&sf);
+    p_("");
+    DebugFactory df;
+    test(&df);
 }
