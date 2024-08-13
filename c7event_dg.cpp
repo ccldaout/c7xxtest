@@ -66,6 +66,26 @@ public:
     }
 };
 
+class service_6: public delegate<service_interface<my_msgbuf>> {
+public:
+    ~service_6() {
+	p_("~service_6");
+    }
+    void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
+	p_("service_6");
+    }
+};
+
+class service_7: public delegate<service_interface<my_msgbuf>> {
+public:
+    ~service_7() {
+	p_("~service_7");
+    }
+    void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
+	p_("service_7");
+    }
+};
+
 
 int main()
 {
@@ -77,15 +97,19 @@ int main()
     auto svc3 = std::make_shared<service_3>();
     auto svc4 = std::make_shared<service_4>();
     auto svc5 = std::make_shared<service_5>();
+    auto svc6 = std::make_shared<service_6>();
+    auto svc7 = std::make_shared<service_7>();
 
     socket_port port;
     monitor mon;
 
-    svc.ext_delegate += svc2;
-    svc.ext_delegate.install(10, svc1);
-    svc.ext_delegate.install(-10, svc5);
     svc.ext_delegate += svc3;
+    svc.ext_delegate.install( 10, svc1);
+    svc.ext_delegate.install(-10, svc6);
     svc.ext_delegate += svc4;
+    svc.ext_delegate.install( 10, svc2);
+    svc.ext_delegate += svc5;
+    svc.ext_delegate.install(-10, svc7);
 
     svc.on_message(mon, port, msg);
 
