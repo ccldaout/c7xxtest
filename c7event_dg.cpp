@@ -16,7 +16,7 @@ int32_t c7::event::get_event(const my_msgbuf& m) { return m.header; }
 class main_service: public delegate<service_interface<my_msgbuf>> {
 };
 
-class service_1: public delegate<service_interface<my_msgbuf>> {
+class service_1: public service_interface<my_msgbuf> {
 public:
     ~service_1() {
 	p_("~service_1");
@@ -26,7 +26,7 @@ public:
     }
 };
 
-class service_2: public delegate<service_interface<my_msgbuf>> {
+class service_2: public service_interface<my_msgbuf> {
 public:
     ~service_2() {
 	p_("~service_2");
@@ -36,7 +36,7 @@ public:
     }
 };
 
-class service_3: public delegate<service_interface<my_msgbuf>> {
+class service_3: public service_interface<my_msgbuf> {
 public:
     ~service_3() {
 	p_("~service_3");
@@ -46,7 +46,7 @@ public:
     }
 };
 
-class service_4: public delegate<service_interface<my_msgbuf>> {
+class service_4: public service_interface<my_msgbuf> {
 public:
     ~service_4() {
 	p_("~service_4");
@@ -56,7 +56,7 @@ public:
     }
 };
 
-class service_5: public delegate<service_interface<my_msgbuf>> {
+class service_5: public service_interface<my_msgbuf> {
 public:
     ~service_5() {
 	p_("~service_5");
@@ -66,7 +66,7 @@ public:
     }
 };
 
-class service_6: public delegate<service_interface<my_msgbuf>> {
+class service_6: public service_interface<my_msgbuf> {
 public:
     ~service_6() {
 	p_("~service_6");
@@ -76,7 +76,7 @@ public:
     }
 };
 
-class service_7: public delegate<service_interface<my_msgbuf>> {
+class service_7: public service_interface<my_msgbuf> {
 public:
     ~service_7() {
 	p_("~service_7");
