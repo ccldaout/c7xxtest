@@ -107,7 +107,7 @@ depend:
 	  prog=$${cpp##*/}; \
 	  c++ -c $(CXXFLAGS_) -MM -MT '$$(BINDIR)'/c7nseq_$${prog%.cpp} $${cpp} >| $(OBJDIR)/Makefile.dep.$${cpp##*/}; \
 	done
-	@cat $(OBJDIR)/Makefile.dep.* | sed 's^$(INCDIR)^$$(INCDIR)^' >| Makefile.dep
+	@cat $(OBJDIR)/Makefile.dep.* | sed 's^$(INCDIR)^$$(INCDIR)^g' >| Makefile.dep
 
 .PHONY: init
 init:
