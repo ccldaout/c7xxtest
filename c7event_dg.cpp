@@ -22,7 +22,7 @@ public:
 	p_("~service_1");
     }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
-	p_("service_1");
+	p_("service_1::on_message()");
     }
 };
 
@@ -32,7 +32,7 @@ public:
 	p_("~service_2");
     }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
-	p_("service_2");
+	p_("service_2::on_message()");
     }
 };
 
@@ -42,7 +42,7 @@ public:
 	p_("~service_3");
     }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
-	p_("service_3");
+	p_("service_3::on_message()");
     }
 };
 
@@ -52,7 +52,7 @@ public:
 	p_("~service_4");
     }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
-	p_("service_4");
+	p_("service_4::on_message()");
     }
 };
 
@@ -62,7 +62,7 @@ public:
 	p_("~service_5");
     }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
-	p_("service_5");
+	p_("service_5::on_message()");
     }
 };
 
@@ -72,7 +72,7 @@ public:
 	p_("~service_6");
     }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
-	p_("service_6");
+	p_("service_6::on_message()");
     }
 };
 
@@ -82,7 +82,7 @@ public:
 	p_("~service_7");
     }
     void on_message(monitor& mon, port_type& port, msgbuf_type& msg) override {
-	p_("service_7");
+	p_("service_7::on_message()");
     }
 };
 
@@ -111,11 +111,17 @@ int main()
     svc.ext_delegate += svc5;
     svc.ext_delegate.install(-10, svc7);
 
+    p_("svc.on_message() ...");
     svc.on_message(mon, port, msg);
+    p_("svc.on_message() ... end");
 
+    p_("\nsvc2 = nullptr ...");
     svc2 = nullptr;
+    p_("svc2 = nullptr ... end");
 
+    p_("\nsvc.on_message() #2 ...");
     svc.on_message(mon, port, msg);
+    p_("svc.on_message() #2 ... end");
 
-    p_("exit");
+    p_("\nexit");
 }
