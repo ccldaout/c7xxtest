@@ -60,9 +60,15 @@ static void rw_test()
 
     p_("--- rw --------------------------------");
     {
-	data_t data{ .age = 53, .code = 0x1234 };
-	(void)strcpy(data.name, "papa");
-	auto res = c7::file::write(path, 0600, &data, sizeof(data));
+	data_t data[3] = {
+	    { .age = 30, .code = 0x30 },
+	    { .age = 20, .code = 0x20 },
+	    { .age = 10, .code = 0x10 },
+	};
+	(void)strcpy(data[0].name, "C");
+	(void)strcpy(data[1].name, "C++");
+	(void)strcpy(data[2].name, "Rust");
+	auto res = c7::file::write(path, 0600, data, sizeof(data));
 	p_("write#1 %{}", res);
 	if (res) {
 	    struct buff_t {
@@ -80,10 +86,25 @@ static void rw_test()
 	    }
 	}
     }
+
+    p_("-- read<data_t[]> --");
+    {
+	size_t sz = 0;
+	auto res = c7::file::read<data_t[]>(path, sz);
+	if (!res)
+	    p_("r ng: %{}", res);
+	else {
+	    auto d = std::move(res.value());
+	    for (decltype(sz) n = 0; n < sz/sizeof(d[0]); n++) {
+		p_("[%{}] name:<%{}>, age:%{}, code:%{#x}", n, d[n].name, d[n].age, d[n].code);
+	    }
+	}
+    }
+
     p_("-- rewrite --");
     {
-	data_t data{ .age = 12, .code = 0xabcd };
-	(void)strcpy(data.name, "brave");
+	data_t data{ .age = 15, .code = 0x15 };
+	(void)strcpy(data.name, "python");
 	auto res = c7::file::rewrite(path, &data, sizeof(data));
 	p_("rewrite#1 %{}", res);
 	if (res) {
@@ -126,7 +147,7 @@ static void rw_test()
 
     p_("-- readlines --");
     {
-	auto res = c7::file::readlines(c7::path::untildize("~/.profile"));
+	auto res = c7::file::readlines(c7::path::untildize("~/.gitconfig"));
 	if (!res)
 	    p_("readlines: %{}");
 	else {
@@ -194,6 +215,39 @@ static void mmap_test()
 	}
     }
 
+    p_("mmap_rw<data_t[]>");
+    {
+	size_t sz = sizeof(data_t) * 3;
+	auto res = c7::file::mmap_rw<data_t[]>(path, sz, true);
+	if (!res)
+	    p_("rw ng: %{}", res);
+	else {
+	    auto& d = res.value();
+	    (void)std::strcpy(d[0].name, "C");
+	    d[0].age = 30;
+	    d[0].code = 0x30;
+	    (void)std::strcpy(d[1].name, "C++");
+	    d[1].age = 20;
+	    d[1].code = 0x20;
+	    (void)std::strcpy(d[2].name, "Rust");
+	    d[2].age = 10;
+	    d[2].code = 0x10;
+	}
+    }
+    
+    p_("mmap_r<data_t[]>");
+    {
+	size_t sz = 0;
+	auto res = c7::file::mmap_r<data_t[]>(path, sz);
+	if (!res)
+	    p_("r ng: %{}", res);
+	else {
+	    auto d = std::move(res.value());
+	    for (decltype(sz) n = 0; n < sz/sizeof(d[0]); n++) {
+		p_("[%{}] name:<%{}>, age:%{}, code:%{#x}", n, d[n].name, d[n].age, d[n].code);
+	    }
+	}
+    }
 }
 
 
