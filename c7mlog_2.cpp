@@ -11,7 +11,7 @@ static void callback(c7::usec_t time_us, const char *src_name, int src_line,
 		     uint32_t level, uint32_t category, uint64_t minidata,
 		     const void *logaddr, size_t logsize_b)
 {
-    c7echo("%{u} callback ... !!!", time_us);
+    c7echo("%{t} callback ... !!!", time_us);
 }
 
 int main(int argc, char **argv)
