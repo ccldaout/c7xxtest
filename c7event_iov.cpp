@@ -277,7 +277,7 @@ static void show(const char *pref, const C& c)
 
 static void get_test()
 {
-    ::iovec base;
+    ::iovec base{};
     iovec_proxy iov{base};
 
     p_("GET_TEST ----------------------------------------");
