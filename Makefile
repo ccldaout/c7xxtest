@@ -13,6 +13,7 @@ PY3DIR ?= $(C7ROOT)/python3
 TMPDIR ?= $(HOME)/tmp/c7xxtest/$(CXX)
 OBJDIR  = $(TMPDIR)/obj
 DBGDIR  = $(TMPDIR)/gdb
+DBGLIBDIR ?= $(DBGDIR)
 BINDIR  = $(TMPDIR)/bin
 
 CXX      ?= c++
@@ -32,7 +33,7 @@ ifeq "$(wildcard .DEBUG)" ""
 else
   CXXFLAGS_ += -O0 -g2 -DC7_DEBUG_
   OBJDIR = $(DBGDIR)
-  LIBDIR = $(DBGDIR)
+  LIBDIR = $(DBGLIBDIR)
   BINSFX = .g
   ECHO_BEG = "\\x1b[33m"
   ECHO_END = "\\x1b[0m"
