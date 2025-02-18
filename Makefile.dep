@@ -444,6 +444,40 @@ $(BINDIR)/c7nseq_29_string: nseq/29_string.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7nseq/reverse.hpp $(INCDIR)/c7nseq/transform.hpp \
  $(INCDIR)/c7nseq/vector.hpp $(INCDIR)/c7nseq/while.hpp \
  $(INCDIR)/c7nseq/filter.hpp
+$(BINDIR)/c7nseq_30_vseq: nseq/30_vseq.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp $(INCDIR)/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
+ $(INCDIR)/c7format/helper.hpp $(INCDIR)/c7nseq/tuple.hpp \
+ $(INCDIR)/c7path.hpp $(INCDIR)/c7string.hpp $(INCDIR)/c7coroutine.hpp \
+ $(INCDIR)/c7nseq/enumerate.hpp $(INCDIR)/c7nseq/_cmn.hpp \
+ $(INCDIR)/c7nseq/_iter_ops.hpp $(INCDIR)/c7nseq/head.hpp \
+ $(INCDIR)/c7mlog.hpp $(INCDIR)/c7strmbuf/hybrid.hpp \
+ $(INCDIR)/c7utils.hpp $(INCDIR)/c7nseq.hpp \
+ $(INCDIR)/c7nseq/accumulate.hpp $(INCDIR)/c7nseq/base64.hpp \
+ $(INCDIR)/c7nseq/c_array.hpp $(INCDIR)/c7nseq/chain.hpp \
+ $(INCDIR)/c7nseq/command.hpp $(INCDIR)/c7pipeline.hpp \
+ $(INCDIR)/c7socket.hpp $(INCDIR)/c7fd.hpp $(INCDIR)/c7thread.hpp \
+ $(INCDIR)/c7thread/spinlock.hpp $(INCDIR)/c7thread/mutex.hpp \
+ $(INCDIR)/c7thread/condvar.hpp $(INCDIR)/c7thread/thread.hpp \
+ $(INCDIR)/c7nseq/empty.hpp $(INCDIR)/c7nseq/filter.hpp \
+ $(INCDIR)/c7nseq/flat.hpp $(INCDIR)/c7nseq/generator.hpp \
+ $(INCDIR)/c7nseq/group.hpp $(INCDIR)/c7nseq/range.hpp \
+ $(INCDIR)/c7nseq/insert.hpp $(INCDIR)/c7nseq/io.hpp \
+ $(INCDIR)/c7file.hpp $(INCDIR)/c7nseq/list.hpp \
+ $(INCDIR)/c7nseq/map.hpp $(INCDIR)/c7nseq/push.hpp \
+ $(INCDIR)/c7nseq/random.hpp $(INCDIR)/c7nseq/repeat.hpp \
+ $(INCDIR)/c7nseq/reverse.hpp $(INCDIR)/c7nseq/set.hpp \
+ $(INCDIR)/c7nseq/slice.hpp $(INCDIR)/c7nseq/sort.hpp \
+ $(INCDIR)/c7nseq/string.hpp $(INCDIR)/c7nseq/transform.hpp \
+ $(INCDIR)/c7nseq/vector.hpp $(INCDIR)/c7nseq/while.hpp \
+ $(INCDIR)/c7nseq/tail.hpp $(INCDIR)/c7nseq/thread.hpp \
+ $(INCDIR)/c7nseq/unique.hpp $(INCDIR)/c7nseq/urlencode.hpp \
+ $(INCDIR)/c7nseq/vseq.hpp $(INCDIR)/c7nseq/window.hpp \
+ $(INCDIR)/c7nseq/zip.hpp
 $(BINDIR)/c7app_1: c7app_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
@@ -753,6 +787,35 @@ $(BINDIR)/c7mlog_2: c7mlog_2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
  $(INCDIR)/c7mlog.hpp $(INCDIR)/c7strmbuf/hybrid.hpp \
  $(INCDIR)/c7utils.hpp
+$(BINDIR)/c7mlog_3: c7mlog_3.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp $(INCDIR)/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
+ $(INCDIR)/c7mlog.hpp $(INCDIR)/c7strmbuf/hybrid.hpp \
+ $(INCDIR)/c7utils.hpp $(INCDIR)/c7thread.hpp \
+ $(INCDIR)/c7thread/spinlock.hpp $(INCDIR)/c7thread/mutex.hpp \
+ $(INCDIR)/c7thread/condvar.hpp $(INCDIR)/c7thread/thread.hpp
+$(BINDIR)/c7mlog_4: c7mlog_4.cpp $(INCDIR)/c7mlog.hpp \
+ $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp \
+ $(INCDIR)/c7format.hpp $(INCDIR)/c7format/format_r1.hpp \
+ $(INCDIR)/c7defer.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_r2.hpp \
+ $(INCDIR)/c7format/format_r3.hpp $(INCDIR)/c7result.hpp \
+ $(INCDIR)/c7strmbuf/hybrid.hpp $(INCDIR)/c7utils.hpp \
+ $(INCDIR)/c7seq.hpp $(INCDIR)/c7nseq/c_array.hpp \
+ $(INCDIR)/c7nseq/_cmn.hpp $(INCDIR)/c7nseq/enumerate.hpp \
+ $(INCDIR)/c7nseq/_iter_ops.hpp $(INCDIR)/c7nseq/filter.hpp \
+ $(INCDIR)/c7nseq/head.hpp $(INCDIR)/c7nseq/range.hpp \
+ $(INCDIR)/c7nseq/reverse.hpp $(INCDIR)/c7nseq/tail.hpp \
+ $(INCDIR)/c7nseq/transform.hpp $(INCDIR)/c7threadsync.hpp \
+ $(INCDIR)/c7thread/group.hpp $(INCDIR)/c7thread/thread.hpp \
+ $(INCDIR)/c7thread/counter.hpp $(INCDIR)/c7thread/condvar.hpp \
+ $(INCDIR)/c7thread/event.hpp $(INCDIR)/c7thread/mask.hpp \
+ $(INCDIR)/c7thread/rendezvous.hpp
 $(BINDIR)/c7mm_1: c7mm_1.cpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp \
  $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
