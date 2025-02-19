@@ -153,13 +153,6 @@ int main()
 
     p_("back_insert & copy");
     {
-#if !defined(C7_SLICE_API_BACK_INSERT_TO_)
-# define back_insert_to back_insert
-# error "C7_SLICE_API_BACK_INSERT_TO_"
-#endif	
-#if !defined(C7_SLICE_API_COPY_TO_)
-# define copy_to copy
-#endif
 	auto iv  = ns::range(10) | ns::to_vector();
 	auto sv1 = c7::make_slice(iv, off, gap, n);
 	auto sv2 = c7::make_slice(iv, off+1, gap, n);
@@ -173,10 +166,10 @@ int main()
 	    std::vector<int> v2;
 	    show("\t       v2  ", v2);
 
-	    sv1.back_insert_to(v2);
+	    sv1.copy_to(v2);
 	    show("\tsv1 >> v2  ", v2);
 
-	    auto it = sv2.copy_to(std::back_inserter(v2));
+	    auto it = sv2.copy_to(v2);
 	    show("\tsv2 >> v2  ", v2);
 	    it = sv3.copy_to(it);
 	    show("\tsv3 >> v2  ", v2);
@@ -190,10 +183,10 @@ int main()
 	    std::list<int> v2;
 	    show("\t       v2  ", v2);
 
-	    csv1.back_insert_to(v2);
+	    csv1.copy_to(v2);
 	    show("\tcsv1 >> v2  ", v2);
 
-	    auto it = csv2.copy_to(std::back_inserter(v2));
+	    auto it = csv2.copy_to(v2);
 	    show("\tcsv2 >> v2  ", v2);
 	    it = csv3.copy_to(it);
 	    show("\tcsv3 >> v2  ", v2);
