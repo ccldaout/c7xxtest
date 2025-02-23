@@ -68,24 +68,21 @@ public:
 // ファクトリー (factory_type2 & shared_ptr を利用)
 
 using FactoryInterface =
-    c7::factory_type2::interface_x<std::shared_ptr,
-				   LoadTaskInterface,
-				   UnloadTaskInterface,
-				   MoveTaskInterface>;
+    c7::factory_type2::interface_sp<LoadTaskInterface,
+				    UnloadTaskInterface,
+				    MoveTaskInterface>;
 
 using StdFactory =
-    c7::factory_type2::factory_x<std::shared_ptr,
-				 FactoryInterface,
-				 StdLoadTask,
-				 StdUnloadTask,
-				 StdMoveTask>;
+    c7::factory_type2::factory_sp<FactoryInterface,
+				  StdLoadTask,
+				  StdUnloadTask,
+				  StdMoveTask>;
 
 using DebugFactory =
-    c7::factory_type2::factory_x<std::shared_ptr,
-				 FactoryInterface,
-				 DebugLoadTask,
-				 DebugUnloadTask,
-				 DebugMoveTask>;
+    c7::factory_type2::factory_sp<FactoryInterface,
+				  DebugLoadTask,
+				  DebugUnloadTask,
+				  DebugMoveTask>;
 
 // テストコード
 

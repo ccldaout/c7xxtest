@@ -121,7 +121,7 @@ c7::factory_type1c::factory<TaskInterface,
 
 static void test(FactoryInterface *factory)
 {
-    std::shared_ptr<TaskInterface> tp1, tp2, tp3;
+    std::unique_ptr<TaskInterface> tp1, tp2, tp3;
 
     {
 	LoadConfig c{"load"};

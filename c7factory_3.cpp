@@ -104,9 +104,9 @@ using DebugFactory =
 
 static void test(const FactoryInterface *factory)
 {
-    std::shared_ptr<LoadTaskInterface>   tp1;
-    std::shared_ptr<UnloadTaskInterface> tp2;
-    std::shared_ptr<MoveTaskInterface>   tp3;
+    std::unique_ptr<LoadTaskInterface>   tp1;
+    std::unique_ptr<UnloadTaskInterface> tp2;
+    std::unique_ptr<MoveTaskInterface>   tp3;
     {
 	LoadTaskInterface::config_type c{"load"};
 	tp1 = factory->make(c);
