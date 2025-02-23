@@ -65,7 +65,7 @@ public:
 };
 
 
-// ファクトリー
+// ファクトリー (factory_type2 を利用)
 
 using FactoryInterface =
     c7::factory_type2::interface<LoadTaskInterface,

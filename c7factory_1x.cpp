@@ -90,31 +90,35 @@ public:
 };
 
 
-// ファクトリー (factory_typ1 を利用)
+// ファクトリー (factory_typ1 & shared_ptr を利用)
 
 using FactoryInterface =
-    c7::factory_type1::interface<TaskInterface,
-				 LoadConfig,
-				 UnloadConfig,
-				 MoveConfig>;
+    c7::factory_type1::interface_x<std::shared_ptr,
+				   TaskInterface,
+				   LoadConfig,
+				   UnloadConfig,
+				   MoveConfig>;
 
 static
-c7::factory_type1::factory<TaskInterface,
-			   LoadTask,
-			   UnloadTask,
-			   MoveTask> std_factory;
+c7::factory_type1::factory_x<std::shared_ptr,
+			     TaskInterface,
+			     LoadTask,
+			     UnloadTask,
+			     MoveTask> std_factory;
 
 static
-c7::factory_type1::factory<TaskInterface,
-			   DebugLoadTask,
-			   DebugUnloadTask,
-			   DebugMoveTask> debug_factory;
+c7::factory_type1::factory_x<std::shared_ptr,
+			     TaskInterface,
+			     DebugLoadTask,
+			     DebugUnloadTask,
+			     DebugMoveTask> debug_factory;
 
 static
-c7::factory_type1c::factory<TaskInterface,
-			    LoadConfig,
-			    UnloadConfig,
-			    MoveConfig> custom_factory;
+c7::factory_type1c::factory_x<std::shared_ptr,
+			      TaskInterface,
+			      LoadConfig,
+			      UnloadConfig,
+			      MoveConfig> custom_factory;
 
 
 // テストコード
