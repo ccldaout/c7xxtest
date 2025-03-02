@@ -182,68 +182,76 @@ public:
 	return res;
     }
 
-    void option_bool(const c7::args::opt_desc& desc,
-		     const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_bool(const c7::args::opt_desc& desc,
+			     const std::vector<c7::args::opt_value>& values) {
 	p_("option_bool: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
-    void option_int(const c7::args::opt_desc& desc,
-		    const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_int(const c7::args::opt_desc& desc,
+			    const std::vector<c7::args::opt_value>& values) {
 	p_("option_int: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
-    void option_uint(const c7::args::opt_desc& desc,
-		     const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_uint(const c7::args::opt_desc& desc,
+			     const std::vector<c7::args::opt_value>& values) {
 	p_("option_uint: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
-    void option_real(const c7::args::opt_desc& desc,
-		     const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_real(const c7::args::opt_desc& desc,
+			     const std::vector<c7::args::opt_value>& values) {
 	p_("option_real: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
-    void option_key(const c7::args::opt_desc& desc,
-		    const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_key(const c7::args::opt_desc& desc,
+			    const std::vector<c7::args::opt_value>& values) {
 	p_("option_key: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
-    void option_reg(const c7::args::opt_desc& desc,
-		    const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_reg(const c7::args::opt_desc& desc,
+			    const std::vector<c7::args::opt_value>& values) {
 	p_("option_reg: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
-    void option_date(const c7::args::opt_desc& desc,
-		     const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_date(const c7::args::opt_desc& desc,
+			     const std::vector<c7::args::opt_value>& values) {
 	p_("option_date: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
-    void option_any(const c7::args::opt_desc& desc,
-		    const std::vector<c7::args::opt_value>& values) {
+    c7::result<> option_any(const c7::args::opt_desc& desc,
+			    const std::vector<c7::args::opt_value>& values) {
 	p_("option_any: %{}", desc);
 	for (auto& v: values) {
 	    p_("           : %{}", v);
 	}
+	return c7result_ok();
     }
 
 private:
