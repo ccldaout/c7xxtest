@@ -485,6 +485,17 @@ $(BINDIR)/c7app_1: c7app_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7format/format_cmn.hpp $(INCDIR)/c7delegate.hpp \
  $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
  $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp
+$(BINDIR)/c7args_1: c7args_1.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp $(INCDIR)/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
+ $(INCDIR)/c7args.hpp $(INCDIR)/c7string.hpp $(INCDIR)/c7coroutine.hpp \
+ $(INCDIR)/c7nseq/enumerate.hpp $(INCDIR)/c7nseq/_cmn.hpp \
+ $(INCDIR)/c7nseq/_iter_ops.hpp $(INCDIR)/c7nseq/head.hpp \
+ $(INCDIR)/c7nseq/c_array.hpp
 $(BINDIR)/c7coroutine_1: c7coroutine_1.cpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp \
  $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
@@ -704,6 +715,14 @@ $(BINDIR)/c7factory_1: c7factory_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
  $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
  $(INCDIR)/c7factory.hpp
+$(BINDIR)/c7factory_1x: c7factory_1x.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp $(INCDIR)/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
+ $(INCDIR)/c7factory.hpp
 $(BINDIR)/c7factory_2: c7factory_2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
@@ -712,7 +731,23 @@ $(BINDIR)/c7factory_2: c7factory_2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
  $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
  $(INCDIR)/c7factory.hpp
+$(BINDIR)/c7factory_2x: c7factory_2x.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp $(INCDIR)/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
+ $(INCDIR)/c7factory.hpp
 $(BINDIR)/c7factory_3: c7factory_3.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
+ $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_cmn.hpp $(INCDIR)/c7delegate.hpp \
+ $(INCDIR)/c7typefunc.hpp $(INCDIR)/c7strmbuf/strref.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_r3.hpp \
+ $(INCDIR)/c7factory.hpp
+$(BINDIR)/c7factory_3x: c7factory_3x.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7format/format_r1.hpp $(INCDIR)/c7defer.hpp \
