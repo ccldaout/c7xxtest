@@ -140,7 +140,7 @@ c7::result<>
 ArgParser::opt_verbose(const opt_desc& desc,
 		       const std::vector<opt_value>& vals)
 {
-    conf_.verbose = (vals.empty() || vals[1].b);
+    conf_.verbose = (vals.empty() || vals[0].b);
     dump(__func__, desc, vals);
     return c7result_ok();
 }
@@ -160,7 +160,7 @@ ArgParser::opt_locale(const opt_desc& desc,
 {
     dump(__func__, desc, vals);
     for (auto& v: vals) {
-	conf_.locales.push_back(vals[0].param);
+	conf_.locales.push_back(v.param);
     }
     return c7result_ok();
 }
@@ -188,7 +188,7 @@ ArgParser::opt_date(const opt_desc& desc,
 		    const std::vector<opt_value>& vals)
 {
     dump(__func__, desc, vals);
-    conf_.date = vals[1].t;
+    conf_.date = vals[0].t;
     return c7result_ok();
 }
 
@@ -199,8 +199,8 @@ ArgParser::opt_help(const opt_desc& desc,
     dump(__func__, desc, vals);
 
     c7::strvec usage;
-    usage += c7::format("Usage: %{} [options ...]"
-			"  option",
+    usage += c7::format("Usage: %{} [options ...]\n\n"
+			"  option\n",
 			c7::app::progname);
     append_usage(usage, 4, 20);
     for (auto& s: usage) {
@@ -213,13 +213,13 @@ ArgParser::opt_help(const opt_desc& desc,
 
 int main(int argc, char **argv)
 {
-    Config cfg;
+    Config cfg{};
     ArgParser parser{cfg};
 
     if (auto res = parser.init(); !res) {
 	c7error(res);
     }
-    if (auto res = parser.parse(argv); !res) {
+    if (auto res = parser.parse(++argv); !res) {
 	c7error(res);
     } else {
 	argv = res.value();
