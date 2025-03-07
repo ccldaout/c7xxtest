@@ -27,7 +27,7 @@ public:
     callback_t opt_verbose;
     callback_t opt_level;
     callback_t opt_locale;
-    callback_t opt_ident;
+    callback_t opt_id;
     callback_t opt_date;
     callback_t opt_help;
 
@@ -104,11 +104,11 @@ ArgParser::init()
 	d.prm_descrip = "reserved or generic identifier";
 	d.keys = c7::strvec{
 	    "(int)|(long)|(float)|(double)",
-	    "R--(([[:alpha:]_])(\w*))--",
+	    R"--(([[:alpha:]_])(\w*))--",
 	};
 	d.prmc_min = 1;
 	d.prmc_max = -1U;
-	res << add_opt(d, &ArgParser::opt_itents);
+	res << add_opt(d, &ArgParser::opt_id);
     }
 
     // date
@@ -141,7 +141,7 @@ ArgParser::opt_verbose(const opt_desc& desc,
 		       const std::vector<opt_value>& vals)
 {
     conf_.verbose = (vals.empty() || vals[1].b);
-    dump(__func__, desc);
+    dump(__func__, desc, vals);
     return c7result_ok();
 }
 
@@ -150,7 +150,7 @@ ArgParser::opt_level(const opt_desc& desc,
 		     const std::vector<opt_value>& vals)
 {
     dump(__func__, desc, vals);
-    conf_.level = vals.i;
+    conf_.level = vals[0].i;
     return c7result_ok();
 }
 
@@ -160,7 +160,7 @@ ArgParser::opt_locale(const opt_desc& desc,
 {
     dump(__func__, desc, vals);
     for (auto& v: vals) {
-	conf_.locales.push_back(vals.param);
+	conf_.locales.push_back(vals[0].param);
     }
     return c7result_ok();
 }
@@ -177,7 +177,7 @@ ArgParser::opt_id(const opt_desc& desc,
 	} else {
 	    id.others = v.param;
 	}
-	id.match = regmatch;
+	id.match = v.regmatch;
 	conf_.idents.push_back(std::move(id));
     }
     return c7result_ok();
@@ -194,7 +194,7 @@ ArgParser::opt_date(const opt_desc& desc,
 
 c7::result<>
 ArgParser::opt_help(const opt_desc& desc,
-		    const std::vector<opt_value>&)
+		    const std::vector<opt_value>& vals)
 {
     dump(__func__, desc, vals);
 
