@@ -22,8 +22,11 @@ struct Config {
 
 class ArgParser: public c7::args::parser {
 public:
-    explicit ArgParser(Config& c): conf_(c) {}
     c7::result<> init() override;
+    c7::result<char**> parse(Config& c, char **argv) {
+	conf_ = &c;
+	return c7::args::parser::parse(argv);
+    }
     callback_t opt_verbose;
     callback_t opt_level;
     callback_t opt_locale;
@@ -32,12 +35,12 @@ public:
     callback_t opt_help;
 
 private:
-    Config& conf_;
+    Config *conf_;
 
     void dump(const char *func,
 	      const opt_desc& desc,
 	      const std::vector<opt_value>& vals) {
-	if (conf_.verbose) {
+	if (conf_->verbose) {
 	    p_("\n*** %{}: %{}", func, desc);
 	    for (auto& v: vals) {
 		p_("%{}", v);
@@ -140,7 +143,7 @@ c7::result<>
 ArgParser::opt_verbose(const opt_desc& desc,
 		       const std::vector<opt_value>& vals)
 {
-    conf_.verbose = (vals.empty() || vals[0].b);
+    conf_->verbose = (vals.empty() || vals[0].b);
     dump(__func__, desc, vals);
     return c7result_ok();
 }
@@ -150,7 +153,7 @@ ArgParser::opt_level(const opt_desc& desc,
 		     const std::vector<opt_value>& vals)
 {
     dump(__func__, desc, vals);
-    conf_.level = vals[0].i;
+    conf_->level = vals[0].i;
     return c7result_ok();
 }
 
@@ -160,7 +163,7 @@ ArgParser::opt_locale(const opt_desc& desc,
 {
     dump(__func__, desc, vals);
     for (auto& v: vals) {
-	conf_.locales.push_back(v.param);
+	conf_->locales.push_back(v.param);
     }
     return c7result_ok();
 }
@@ -178,7 +181,7 @@ ArgParser::opt_id(const opt_desc& desc,
 	    id.others = v.param;
 	}
 	id.match = v.regmatch;
-	conf_.idents.push_back(std::move(id));
+	conf_->idents.push_back(std::move(id));
     }
     return c7result_ok();
 }
@@ -188,7 +191,7 @@ ArgParser::opt_date(const opt_desc& desc,
 		    const std::vector<opt_value>& vals)
 {
     dump(__func__, desc, vals);
-    conf_.date = vals[0].t;
+    conf_->date = vals[0].t;
     return c7result_ok();
 }
 
@@ -214,12 +217,12 @@ ArgParser::opt_help(const opt_desc& desc,
 int main(int argc, char **argv)
 {
     Config cfg{};
-    ArgParser parser{cfg};
+    ArgParser parser;
 
     if (auto res = parser.init(); !res) {
 	c7error(res);
     }
-    if (auto res = parser.parse(++argv); !res) {
+    if (auto res = parser.parse(cfg, ++argv); !res) {
 	c7error(res);
     } else {
 	argv = res.value();
