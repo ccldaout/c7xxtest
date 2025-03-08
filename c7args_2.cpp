@@ -27,11 +27,7 @@ public:
 	conf_ = &c;
 	return c7::args::parser::parse(argv);
     }
-    callback_t opt_verbose;
-    callback_t opt_level;
-    callback_t opt_locale;
     callback_t opt_id;
-    callback_t opt_date;
     callback_t opt_help;
 
 private:
@@ -64,7 +60,13 @@ ArgParser::init()
 	d.type = prm_type::BOOL;
 	d.prmc_min = 0;
 	d.prmc_max = 1;
-	res << add_opt(d, &ArgParser::opt_verbose);
+	res << add_opt(d,
+		       [this](auto& desc, auto& vals) {
+			   conf_->verbose = (vals.empty() || vals[0].b);
+			   dump(__func__, desc, vals);
+			   return c7result_ok();
+		       });
+
     }
 
     // level
@@ -78,7 +80,12 @@ ArgParser::init()
 	d.prm_descrip = "integer value";
 	d.prmc_min = 1;
 	d.prmc_max = 1;
-	res << add_opt(d, &ArgParser::opt_level);
+	res << add_opt(d,
+		       [this](auto& desc, auto& vals) {
+			   dump(__func__, desc, vals);
+			   conf_->level = vals[0].i;
+			   return c7result_ok();
+		       });
     }
 
     // locale
@@ -93,7 +100,14 @@ ArgParser::init()
 	d.keys = c7::strvec{"C", "ja_JP", "en_US"};
 	d.prmc_min = 0;
 	d.prmc_max = d.keys.size();
-	res << add_opt(d, &ArgParser::opt_locale);
+	res << add_opt(d,
+		       [this](auto& desc, auto& vals) {
+			   dump(__func__, desc, vals);
+			   for (auto& v: vals) {
+			       conf_->locales.push_back(v.param);
+			   }
+			   return c7result_ok();
+		       });
     }
 
     // id
@@ -124,7 +138,12 @@ ArgParser::init()
 	d.prm_descrip = "date value";
 	d.prmc_min = 1;
 	d.prmc_max = 1;
-	res << add_opt(d, &ArgParser::opt_date);
+	res << add_opt(d,
+		       [this](auto& desc, auto& vals) {
+			   dump(__func__, desc, vals);
+			   conf_->date = vals[0].t;
+			   return c7result_ok();
+		       });
     }
 
     // help
@@ -138,35 +157,6 @@ ArgParser::init()
     return res;
 }
 
-
-c7::result<>
-ArgParser::opt_verbose(const opt_desc& desc,
-		       const std::vector<opt_value>& vals)
-{
-    conf_->verbose = (vals.empty() || vals[0].b);
-    dump(__func__, desc, vals);
-    return c7result_ok();
-}
-
-c7::result<>
-ArgParser::opt_level(const opt_desc& desc,
-		     const std::vector<opt_value>& vals)
-{
-    dump(__func__, desc, vals);
-    conf_->level = vals[0].i;
-    return c7result_ok();
-}
-
-c7::result<>
-ArgParser::opt_locale(const opt_desc& desc,
-		      const std::vector<opt_value>& vals)
-{
-    dump(__func__, desc, vals);
-    for (auto& v: vals) {
-	conf_->locales.push_back(v.param);
-    }
-    return c7result_ok();
-}
 
 c7::result<>
 ArgParser::opt_id(const opt_desc& desc,
@@ -186,14 +176,6 @@ ArgParser::opt_id(const opt_desc& desc,
     return c7result_ok();
 }
 
-c7::result<>
-ArgParser::opt_date(const opt_desc& desc,
-		    const std::vector<opt_value>& vals)
-{
-    dump(__func__, desc, vals);
-    conf_->date = vals[0].t;
-    return c7result_ok();
-}
 
 c7::result<>
 ArgParser::opt_help(const opt_desc& desc,
