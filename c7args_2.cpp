@@ -127,7 +127,7 @@ ArgParser::init()
 	};
 	d.reg_descrips = c7::strvec{
 	    "int,long,float,double",
-	    "C-line identifier",
+	    "C-like identifier",
 	};
 	d.prmc_min = 1;
 	d.prmc_max = -1U;
