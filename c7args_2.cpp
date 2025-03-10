@@ -56,8 +56,10 @@ ArgParser::init()
 	c7::args::opt_desc d;
 	d.long_name = "verbose";
 	d.short_name = "v";
-	d.opt_descrip = "verbose";
+	d.opt_descrip = "verbose output";
 	d.type = prm_type::BOOL;
+	d.prm_name = "Y/N";
+	d.prm_descrip = "verbose or not";
 	d.prmc_min = 0;
 	d.prmc_max = 1;
 	res << add_opt(d,
@@ -74,7 +76,7 @@ ArgParser::init()
 	c7::args::opt_desc d;
 	d.long_name = "level";
 	d.short_name = "l";
-	    d.opt_descrip = "level";
+	d.opt_descrip = "log level";
 	d.type = prm_type::INT;
 	d.prm_name = "LEVEL";
 	d.prm_descrip = "integer value";
@@ -93,7 +95,7 @@ ArgParser::init()
 	c7::args::opt_desc d;
 	d.long_name = "locale";
 	d.short_name = "L";
-	    d.opt_descrip = "locale";
+	d.opt_descrip = "output locales";
 	d.type = prm_type::KEY;
 	d.prm_name = "LOCALE";
 	d.prm_descrip = "locale name";
@@ -115,13 +117,17 @@ ArgParser::init()
 	c7::args::opt_desc d;
 	d.long_name = "id";
 	d.prmc_min = 1;
-	d.opt_descrip = "identifier";
+	d.opt_descrip = "identifiers to be processed";
 	d.type = prm_type::REG;
 	d.prm_name = "ID";
 	d.prm_descrip = "reserved or generic identifier";
 	d.keys = c7::strvec{
 	    "(int)|(long)|(float)|(double)",
 	    R"--(([[:alpha:]_])(\w*))--",
+	};
+	d.reg_descrips = c7::strvec{
+	    "int,long,float,double",
+	    "C-line identifier",
 	};
 	d.prmc_min = 1;
 	d.prmc_max = -1U;
