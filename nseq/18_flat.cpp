@@ -27,7 +27,7 @@ using namespace c7::nseq;
     {
 	auto source =
 	    generator<std::vector<int>>(
-		[](auto&, auto& out) {
+		[](auto& out) {
 		    out << std::vector<int>{1, 2, 3};
 		    out << std::vector<int>{4, 5, 6};
 		    out << std::vector<int>{7, 8, 9};
@@ -66,7 +66,7 @@ using namespace c7::nseq;
     {
 	auto source =
 	    generator<std::vector<std::string>>(
-		[](auto&, auto& out) {
+		[](auto& out) {
 		    out << std::vector<std::string>{"one", "two", "three"};
 		    out << std::vector<std::string>{"four", "five", "six"};
 		    out << std::vector<std::string>{"seven", "eight", "nine"};

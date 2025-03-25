@@ -94,6 +94,14 @@ static auto s_range(size_t n)
 	   s_range(4), s_range(4) | drop_tail(3));
 	p_("  s_range(5) | drop_tail(3) %{} -> %{}",
 	   s_range(5), s_range(5) | drop_tail(3));
+	p_("  s_range(6) | drop_tail(3) %{} -> %{}",
+	   s_range(6), s_range(6) | drop_tail(3));
+	p_("  s_range(7) | drop_tail(3) %{} -> %{}",
+	   s_range(7), s_range(7) | drop_tail(3));
+	p_("  s_range(8) | drop_tail(3) %{} -> %{}",
+	   s_range(8), s_range(8) | drop_tail(3));
+	p_("  s_range(9) | drop_tail(3) %{} -> %{}",
+	   s_range(9), s_range(9) | drop_tail(3));
 	p_("  s_range(10) | drop_tail(3) %{} -> %{}",
 	   s_range(10), s_range(10) | drop_tail(3));
     }
