@@ -12,6 +12,7 @@ c7::mlog_writer mlog;
 #include <c7nseq/range.hpp>
 #include <c7nseq/reverse.hpp>
 #include <c7nseq/tail.hpp>
+#include <c7nseq/vector.hpp>
 #include <c7string.hpp>
 
 
@@ -74,6 +75,7 @@ static auto s_range(size_t n)
     }
 
     p_("\n[drop_tail] --------------------------------------------------------------");
+#if 0
     {
 	c7::strvec kws{"zero", "one", "two", "three", "four", "five", "six", "seven"};
 	p_("  kws %{}", kws);
@@ -104,6 +106,12 @@ static auto s_range(size_t n)
 	   s_range(9), s_range(9) | drop_tail(3));
 	p_("  s_range(10) | drop_tail(3) %{} -> %{}",
 	   s_range(10), s_range(10) | drop_tail(3));
+    }
+#endif
+    {
+	auto v = s_range(13) | drop_tail(3) | to_vector();
+	p_("  s_range(13) | drop_tail(3) %{} -> %{}",
+	   s_range(13), v);
     }
 }
 
