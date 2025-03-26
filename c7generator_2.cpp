@@ -37,7 +37,8 @@ static void makedata2(gen_output<data_t>& out)
     }
 }
 
-static void makedata3(std::vector<data_t>& vec, gen_output<data_t&>& out)
+template <typename Data>
+static void makedata3(std::vector<data_t>& vec, gen_output<Data>& out)
 {
     for (auto& v: vec) {
 	out << v;
@@ -148,20 +149,53 @@ static void test_generator()
 	}
     }
 
-    p_("---- makedata3");
+    p_("---- makedata3<data_t>");
     {
 	std::vector<data_t> vec;
 	for (int i = 0; i < 5; i++) {
 	    vec.push_back(data_t{ i, c7::format("data%{}", i) });
 	}
-	for (auto& idx: generator<data_t&>{1}.start(
+	for (auto& idx: generator<data_t>{1}.start(
 		 [&vec](auto& out) {
-		     makedata3(vec, out);
+		     makedata3<data_t>(vec, out);
 		 })) {
 	    p_("idx:%{}, index:%{}, s:%{}", &idx, idx.index, idx.s);
 	    idx.index *= 10;
 	    idx.s = "{"+idx.s+"}";
 	}
+	p_(" - - - ");
+	for (auto& v: vec) {
+	    p_("vec:%{}, index:%{}, s:%{}", &v, v.index, v.s);
+	}
+    }
+
+    p_("---- makedata3<data_t&>");
+    {
+	std::vector<data_t> vec;
+	for (int i = 0; i < 5; i++) {
+	    vec.push_back(data_t{ i, c7::format("data%{}", i) });
+	}
+#if 0
+	// maybe-uninitialized error
+	for (auto& idx: generator<data_t&>{1}.start(
+		 [&vec](auto& out) {
+		     makedata3<data_t&>(vec, out);
+		 })) {
+	    p_("idx:%{}, index:%{}, s:%{}", &idx, idx.index, idx.s);
+	    idx.index *= 10;
+	    idx.s = "{"+idx.s+"}";
+	}
+#else
+	generator<data_t&> gen{1};
+	for (auto& idx: gen.start(
+		 [&vec](auto& out) {
+		     makedata3<data_t&>(vec, out);
+		 })) {
+	    p_("idx:%{}, index:%{}, s:%{}", &idx, idx.index, idx.s);
+	    idx.index *= 10;
+	    idx.s = "{"+idx.s+"}";
+	}
+#endif
 	p_(" - - - ");
 	for (auto& v: vec) {
 	    p_("vec:%{}, index:%{}, s:%{}", &v, v.index, v.s);
