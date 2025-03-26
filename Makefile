@@ -40,6 +40,7 @@ else
 endif
 
 CXXFLAGS_ += $(CXXFLAGS)
+$(BINDIR)/c7generator_2: CXXFLAGS += -Wno-error
 
 #
 
