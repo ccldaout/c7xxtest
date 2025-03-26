@@ -1,9 +1,14 @@
 #include <c7format.hpp>
-#include <c7coroutine.hpp>
+#include <c7generator_r2.hpp>
 #include <cstring>
 
 
+using namespace c7::r2;
 using c7::p_;
+
+
+template <typename Output>
+using gen_output = typename generator<Output>::gen_output;
 
 
 /*----------------------------------------------------------------------------
@@ -14,32 +19,32 @@ struct data_t {
     std::string s;
 };
 
-static void makedata()
+static void makedata(gen_output<data_t>& out)
 {
     for (int i = 0; i < 5; i++) {
-	c7::generator<data_t>::yield(data_t{ i, c7::format("data%{}", i) });
+	out << data_t{ i, c7::format("data%{}", i) };
     }
 }
 
-static void makedata2()
+static void makedata2(gen_output<data_t>& out)
 {
     std::vector<data_t> vec;
     for (int i = 0; i < 5; i++) {
 	vec.push_back(data_t{ i, c7::format("data%{}", i) });
     }
     for (auto& v: vec) {
-	c7::generator<data_t>::yield(v);
+	out << v;
     }
 }
 
-static void makedata3()
+static void makedata3(gen_output<data_t&>& out)
 {
     std::vector<data_t> vec;
     for (int i = 0; i < 5; i++) {
 	vec.push_back(data_t{ i, c7::format("data%{}", i) });
     }
     for (auto& v: vec) {
-	c7::generator<data_t&>::yield(v);
+	out << v;
     }
     p_(" - - - ");
     for (auto& v: vec) {
@@ -53,56 +58,50 @@ static void test_generator()
     p_("test_generator start");
 
     {
-	c7::generator<std::string> gen(
-	    1024,
-	    []() {
-		using gen = c7::generator<std::string>;
-		gen::yield("These");
-		gen::yield("data");
-		gen::yield("are");
-		gen::yield("from");
-		gen::yield("generator.");
+	generator<std::string> gen{1};
+	gen.start(
+	    [](auto& out) {
+		out << "These";
+		out << "data";
+		out << "are";
+		out << "from";
+		out << "generator.";
 	    });
-
 	for (auto& s: gen) {
 	    p_("<%{}>", s);
 	}
-	p_("is_success: %{}", gen.is_success());
+	//p_("is_success: %{}", gen.is_success());
     }
 
     p_("----");
     {
 	int i = 0;
-	c7::generator<std::string> gen(
-	    1024,
-	    []() {
-		using gen = c7::generator<std::string>;
-		gen::yield("These");
-		gen::yield("data");
-		gen::yield("are");
-		gen::yield("from");
-		gen::yield("generator.");
+	generator<std::string> gen{1};
+	gen.start(
+	    [](auto& out) {
+		out << "These";
+		out << "data";
+		out << "are";
+		out << "from";
+		out << "generator.";
 	    });
-
 	for (auto& s: gen) {
 	    p_("<%{}>", s);
 	    if (i++ == 2)
 		break;
 	}
-	p_("is_success: %{}", gen.is_success());
+	//p_("is_success: %{}", gen.is_success());
     }
 
     p_("---- int literal");
     {
-	c7::generator<int> gen(
-	    1024,
-	    []() {
-		using gen = c7::generator<int>;
-		gen::yield(1);
-		gen::yield(2);
-		gen::yield(3);
+	generator<int> gen{1};
+	gen.start(
+	    [](auto& out) {
+		out << 1;
+		out << 2;
+		out << 3;
 	    });
-
 	for (auto& n: gen) {
 	    p_("<%{}, %{}>", &n, n);
 	}
@@ -110,16 +109,14 @@ static void test_generator()
 
     p_("---- vec<int>");
     {
-	c7::generator<int> gen(
-	    1024,
-	    []() {
+	generator<int> gen{1};
+	gen.start(
+	    [](auto& out) {
 		std::vector vec{1,2,3};
-		using gen = c7::generator<int>;
 		for (auto& v: vec) {
-		    gen::yield(v);
+		    out << v;
 		}
 	    });
-
 	for (auto& n: gen) {
 	    p_("<%{}, %{}>", &n, n);
 	}
@@ -127,19 +124,17 @@ static void test_generator()
 
     p_("---- vec<int> & gen<int&>");
     {
-	c7::generator<int&> gen(
-	    1024,
-	    []() {
+	generator<int&> gen{1};
+	gen.start(
+	    [](auto& out) {
 		std::vector vec{1,2,3};
-		using gen = c7::generator<int&>;
 		for (auto& v: vec) {
-		    gen::yield(v);
+		    out << v;
 		}
 		for (auto& v: vec) {
 		    p_("vec: %{} %{}", &v, v);
 		}
 	    });
-
 	for (auto& n: gen) {
 	    p_("<%{}, %{}>", &n, n);
 	    n *= 2;
@@ -148,14 +143,14 @@ static void test_generator()
 
     p_("---- makedata ");
     {
-	for (auto& idx: c7::generator<data_t>(1024, makedata)) {
+	for (auto& idx: generator<data_t>{1}.start(makedata)) {
 	    p_("idx:%{}, index:%{}, s:%{}", &idx, idx.index, idx.s);
 	}
     }
 
     p_("---- makedata2 ");
     {
-	for (auto& idx: c7::generator<data_t>(1024, makedata2)) {
+	for (auto& idx: generator<data_t>{1}.start(makedata2)) {
 	    p_("idx:%{}, index:%{}, s:%{}", &idx, idx.index, idx.s);
 	    //idx.index *= 2;	// ERROR
 	}
@@ -163,7 +158,7 @@ static void test_generator()
 
     p_("---- makedata3");
     {
-	for (auto& idx: c7::generator<data_t&>(1024, makedata3)) {
+	for (auto& idx: generator<data_t&>{1}.start(makedata3)) {
 	    p_("idx:%{}, index:%{}, s:%{}", &idx, idx.index, idx.s);
 	    idx.index *= 2;
 	}
