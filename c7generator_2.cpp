@@ -186,8 +186,8 @@ static void test_generator()
 	    idx.s = "{"+idx.s+"}";
 	}
 #else
-	generator<data_t&> gen{1};
-	for (auto& idx: gen.start(
+	for (auto& idx: generator<data_t&>(
+		 1,
 		 [&vec](auto& out) {
 		     makedata3<data_t&>(vec, out);
 		 })) {
