@@ -206,11 +206,52 @@ static void test_generator()
 }
 
 
+static void func(gen_output<int>& o)
+{
+    p_("func enter");
+    for (int i = 0; i < 5; i++) {
+	p_("func before <<");
+	o << i;
+	p_("func after  <<");
+    }
+    p_("func exit");
+}
+
+static void test_buffsize(size_t bufsize)
+{
+    p_("---- test_buffsize(%{})", bufsize);
+    {
+	p_("test enter block");
+	c7::r2::generator<int> gen{bufsize};
+	p_("test after gen{1} and before gen.start ...");
+	gen.start(func);
+	p_("test before begin()");
+	auto it = gen.begin();
+	p_("test after  begin()");
+	auto end = gen.end();
+	p_("test enter loop ...");
+	while (it != end) {
+	    p_("test before *it");
+	    auto v = *it;
+	    p_("test after  *it (%{})", v);
+	    p_("test before ++");
+	    ++it;
+	    p_("test after  ++");
+	}
+	p_("test exit loop & exit block ...");
+    }
+    p_("test exit ...");
+}
+
+
 /*----------------------------------------------------------------------------
 ----------------------------------------------------------------------------*/
 
 int main()
 {
     test_generator();
+    test_buffsize(1);
+    test_buffsize(2);
+    test_buffsize(10);
     return 0;
 }
