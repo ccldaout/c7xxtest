@@ -22,8 +22,8 @@ void P_(const char *fmt, const Args&... args)
     c7::format_r3::p_(fmt, args...);
 }
 
-template <typename... Args>
-void F_(std::string& s, const char *fmt, const Args&... args)
+template <size_t N, typename... Args>
+void F_(std::string& s, const char (&fmt)[N], const Args&... args)
 {
     c7::format_r1::format(s, fmt, args...);
     c7::format_r2::format(s, fmt, args...);
