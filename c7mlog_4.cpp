@@ -34,7 +34,7 @@ static void partition_test()
 	std::shuffle(levels.begin(), levels.end(), engine);
 	for (auto level: levels) {
 	    mdata++;
-	    mlog.format_r2(__FILE__, __LINE__, level, 0, mdata, "#%{}, level:%{}", mdata, level);
+	    mlog.format(__FILE__, __LINE__, level, 0, mdata, "#%{}, level:%{}", mdata, level);
 	}
     }
 

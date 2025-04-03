@@ -32,7 +32,7 @@ static void thread_test()
 	logger([&mlog](auto i, auto name) {
 		for (uint32_t n = 0;; n++) {
 		    size_t mdata = (((size_t)i)<<32)|n;
-		    mlog.format_r2(__FILE__, __LINE__, 0, 0, mdata, "%{}: %{}", name, n);
+		    mlog.format(__FILE__, __LINE__, 0, 0, mdata, "%{}: %{}", name, n);
 		    if (stop_thread) {
 			p_("%{} stopped at %{}", name, n);
 			return;
