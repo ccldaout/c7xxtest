@@ -70,6 +70,15 @@ using c7::P_;
 	    | transform([](auto c) { return std::toupper(c); });
 	p_("  istream(skipws) | transform -> <%{}>", ns | to_string());
     }
+
+    {
+	auto path = c7::path::untildize("~/tmp/nseq.empty");
+	c7::file::write(path, 0644, nullptr, 0).check();
+	auto ns
+	    = mmap_r<char>(path)
+	    | transform([](auto c) { return std::toupper(c); });
+	p_("  mmap_r(empty_file) | transform -> <%{}>", ns | to_string());
+    }
 }
 
 
