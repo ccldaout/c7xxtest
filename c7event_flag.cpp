@@ -3,6 +3,7 @@
 #include <c7event/msgbuf_impl.hpp>
 #include <c7event/connector_impl.hpp>
 #include <c7thread/event.hpp>
+#include <c7utils/time.hpp>
 
 
 using namespace c7::event;

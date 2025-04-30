@@ -2,6 +2,7 @@
 #include <c7socket.hpp>
 #include <c7event/monitor.hpp>
 #include <c7thread/thread.hpp>
+#include <c7utils/movable_capture.hpp>
 
 
 using c7::result;

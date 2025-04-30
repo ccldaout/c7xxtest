@@ -2,6 +2,7 @@
 #include <c7thread.hpp>
 #include <c7threadsync.hpp>
 #include <c7threadcom.hpp>
+#include <c7utils/time.hpp>
 
 using namespace std;
 
