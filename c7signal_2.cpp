@@ -8,7 +8,7 @@ using c7::p_;
 
 int main(int argc, char **argv)
 {
-    c7::signal::ext_handler sighandle = [argv](int sig) {
+    c7::signal::sig_handler sighandle = [argv](int sig) {
 					    p_("** %{}::sighandle %{}", argv[0], sig);
 					};
 
