@@ -1,6 +1,7 @@
 #include <c7app.hpp>
 #include <c7args.hpp>
 #include <c7nseq/c_array.hpp>
+#include <c7string/basic.hpp>
 
 
 using c7::p_;
