@@ -2,7 +2,6 @@
 #include <c7format/helper.hpp>
 #include <c7nseq/generator.hpp>
 #include <c7nseq/flat.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 

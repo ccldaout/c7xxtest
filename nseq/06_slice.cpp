@@ -5,7 +5,6 @@
 #include <c7nseq/slice.hpp>
 #include <c7nseq/sort.hpp>
 #include <c7nseq/transform.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 

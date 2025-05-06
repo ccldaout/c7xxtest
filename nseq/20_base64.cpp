@@ -3,7 +3,6 @@
 #include <c7nseq/base64.hpp>
 #include <c7nseq/c_array.hpp>
 #include <c7nseq/string.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 

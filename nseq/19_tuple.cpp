@@ -1,7 +1,6 @@
 #include <c7app.hpp>
 #include <c7format/helper.hpp>
 #include <c7nseq/tuple.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 

@@ -13,7 +13,7 @@ c7::mlog_writer mlog;
 #include <c7nseq/reverse.hpp>
 #include <c7nseq/tail.hpp>
 #include <c7nseq/vector.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 
 
 using c7::p_;

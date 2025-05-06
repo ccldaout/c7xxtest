@@ -5,7 +5,7 @@
 #include <c7nseq/sort.hpp>
 #include <c7nseq/tail.hpp>
 #include <c7nseq/unique.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 #include <c7mlog.hpp>
 
 

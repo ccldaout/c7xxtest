@@ -1,9 +1,9 @@
 #include <c7app.hpp>
 #include <c7format/helper.hpp>
+#include <c7nseq/enumerate.hpp>
 #include <c7nseq/reverse.hpp>
 #include <c7nseq/sort.hpp>
 #include <c7nseq/vector.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 

@@ -3,7 +3,7 @@
 #include <c7nseq/group.hpp>
 #include <c7nseq/list.hpp>
 #include <c7nseq/sort.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 #include <c7mlog.hpp>
 
 

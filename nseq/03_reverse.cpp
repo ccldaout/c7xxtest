@@ -3,7 +3,7 @@
 #include <c7nseq/enumerate.hpp>
 #include <c7nseq/filter.hpp>
 #include <c7nseq/reverse.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 #include <c7mlog.hpp>
 
 

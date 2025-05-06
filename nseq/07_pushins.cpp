@@ -7,7 +7,6 @@
 #include <c7nseq/range.hpp>
 #include <c7nseq/sort.hpp>
 #include <c7nseq/vector.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 

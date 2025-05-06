@@ -6,7 +6,7 @@
 #include <c7nseq/sort.hpp>
 #include <c7nseq/vector.hpp>
 #include <c7nseq/zip.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 #include <c7mlog.hpp>
 
 

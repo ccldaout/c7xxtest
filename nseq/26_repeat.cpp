@@ -1,7 +1,7 @@
 #include <c7app.hpp>
 #include <c7format/helper.hpp>
 #include <c7path.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 #include <c7mlog.hpp>
 #include <c7nseq/chain.hpp>
 #include <c7nseq/command.hpp>

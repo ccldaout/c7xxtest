@@ -4,7 +4,7 @@
 #include <c7nseq/range.hpp>
 #include <c7nseq/while.hpp>
 #include <c7nseq/vector.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 #include <c7mlog.hpp>
 
 

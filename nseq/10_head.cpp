@@ -4,7 +4,7 @@
 #include <c7nseq/list.hpp>
 #include <c7nseq/range.hpp>
 #include <c7nseq/reverse.hpp>
-#include <c7string.hpp>
+#include <c7string/strvec.hpp>
 #include <c7mlog.hpp>
 
 

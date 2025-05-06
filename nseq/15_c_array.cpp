@@ -3,7 +3,6 @@
 #include <c7nseq/c_array.hpp>
 #include <c7nseq/head.hpp>
 #include <c7nseq/sort.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 

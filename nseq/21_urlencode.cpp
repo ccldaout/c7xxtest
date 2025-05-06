@@ -5,7 +5,6 @@
 #include <c7nseq/group.hpp>
 #include <c7nseq/string.hpp>
 #include <c7nseq/urlencode.hpp>
-#include <c7string.hpp>
 #include <c7mlog.hpp>
 
 
