@@ -25,14 +25,12 @@ struct Album: public c7::json_object {
     c7::json_str	title;
     c7::json_str	author;
     c7::json_array<Song> songs;
-    c7::json_int	price_yen;
     c7::json_usec	release;
 
     Album() {
 	c7json_member(title);
 	c7json_member(author);
 	c7json_member(songs);
-	c7json_member(price_yen);
 	c7json_member(release);
     }
 };
@@ -53,11 +51,11 @@ static void init_lib(Library& lib, const std::string& path)
 	Album a;
 	a.title = "Perfect Strangers";
 	a.author = "Deep Purple";
+	a.release = c7::make_usec().year(1984).make();
 	{
 	    auto& s = a.songs.extend();
 	    s.title = "Hungry Daze";
 	    s.duration_m = 5;
-	    s.audio = std::vector<uint8_t>{};
 	}
 	lib.albums.push_back(std::move(a));
     }
@@ -66,12 +64,12 @@ static void init_lib(Library& lib, const std::string& path)
 	auto& a = lib.albums.extend();
 	a.title = "Asia";
 	a.author = "Asia";
+	a.release = c7::make_usec().year(1982).make();
 	{
 	    Song s;
 	    s.title = "HOTM";
 	    s.duration_m = 3;
-	    s.audio = std::vector<uint8_t>{};
-	    "heat of the moment" | c7::nseq::push_back(s.audio());
+ 	    "heat of the moment" | c7::nseq::push_back(s.audio());
 	    a.songs.push_back(std::move(s));
 	}
     }
