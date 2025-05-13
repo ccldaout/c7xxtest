@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 	if (a.title() != album) {
 	    continue;
 	}
-	p_("Hit! album: title:%{}, author:%{}, release:%{t%Y}", album, a.author(), a.release.value_or(0));
+	p_("Hit! album: title:%{}, author:%{}, release:%{t%Y}", album, a.author(), a.release());
 	for (auto& s: a.songs) {
 	    if (s.title() != song) {
 		continue;
