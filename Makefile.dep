@@ -218,10 +218,10 @@ $(BINDIR)/c7nseq_17_gen: nseq/17_gen.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7nseq/reverse.hpp $(INCDIR)/c7nseq/transform.hpp \
  $(INCDIR)/c7nseq/vector.hpp $(INCDIR)/c7nseq/while.hpp \
  $(INCDIR)/c7nseq/filter.hpp $(INCDIR)/c7string/basic.hpp \
- $(INCDIR)/c7coroutine.hpp $(INCDIR)/c7string/c_str.hpp \
- $(INCDIR)/c7nseq/enumerate.hpp $(INCDIR)/c7string/strvec.hpp \
- $(INCDIR)/c7mlog.hpp $(INCDIR)/c7strmbuf/hybrid.hpp \
- $(INCDIR)/c7utils/storage.hpp $(INCDIR)/c7utils/time.hpp
+ $(INCDIR)/c7string/c_str.hpp $(INCDIR)/c7nseq/enumerate.hpp \
+ $(INCDIR)/c7string/strvec.hpp $(INCDIR)/c7mlog.hpp \
+ $(INCDIR)/c7strmbuf/hybrid.hpp $(INCDIR)/c7utils/storage.hpp \
+ $(INCDIR)/c7utils/time.hpp
 $(BINDIR)/c7nseq_18_flat: nseq/18_flat.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
@@ -298,11 +298,10 @@ $(BINDIR)/c7nseq_22_thread: nseq/22_thread.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7context.hpp $(INCDIR)/c7nseq/empty.hpp \
  $(INCDIR)/c7utils/movable_capture.hpp $(INCDIR)/c7nseq/thread.hpp \
  $(INCDIR)/c7thread/condvar.hpp $(INCDIR)/c7thread/thread.hpp \
- $(INCDIR)/c7string/basic.hpp $(INCDIR)/c7coroutine.hpp \
- $(INCDIR)/c7string/c_str.hpp $(INCDIR)/c7nseq/enumerate.hpp \
- $(INCDIR)/c7string/strvec.hpp $(INCDIR)/c7mlog.hpp \
- $(INCDIR)/c7strmbuf/hybrid.hpp $(INCDIR)/c7utils/storage.hpp \
- $(INCDIR)/c7utils/time.hpp
+ $(INCDIR)/c7string/basic.hpp $(INCDIR)/c7string/c_str.hpp \
+ $(INCDIR)/c7nseq/enumerate.hpp $(INCDIR)/c7string/strvec.hpp \
+ $(INCDIR)/c7mlog.hpp $(INCDIR)/c7strmbuf/hybrid.hpp \
+ $(INCDIR)/c7utils/storage.hpp $(INCDIR)/c7utils/time.hpp
 $(BINDIR)/c7nseq_23_command: nseq/23_command.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
@@ -483,7 +482,7 @@ $(BINDIR)/c7args_1: c7args_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
  $(INCDIR)/c7args.hpp $(INCDIR)/c7string/strvec.hpp \
  $(INCDIR)/c7nseq/c_array.hpp $(INCDIR)/c7nseq/_cmn.hpp \
- $(INCDIR)/c7string/basic.hpp $(INCDIR)/c7coroutine.hpp \
+ $(INCDIR)/c7string/basic.hpp $(INCDIR)/c7generator_r2.hpp \
  $(INCDIR)/c7context.hpp $(INCDIR)/c7nseq/head.hpp \
  $(INCDIR)/c7string/c_str.hpp $(INCDIR)/c7nseq/enumerate.hpp \
  $(INCDIR)/c7nseq/_iter_ops.hpp
@@ -1118,7 +1117,7 @@ $(BINDIR)/c7string_1: c7string_1.cpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
  $(INCDIR)/c7string.hpp $(INCDIR)/c7string/basic.hpp \
- $(INCDIR)/c7coroutine.hpp $(INCDIR)/c7context.hpp \
+ $(INCDIR)/c7generator_r2.hpp $(INCDIR)/c7context.hpp \
  $(INCDIR)/c7nseq/head.hpp $(INCDIR)/c7nseq/_cmn.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7string/c_str.hpp \
  $(INCDIR)/c7nseq/enumerate.hpp $(INCDIR)/c7nseq/_iter_ops.hpp \
