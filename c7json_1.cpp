@@ -91,7 +91,16 @@ int main(int argc, char **argv)
 	t.pos.x = 111;
 	t.pos.y = 222;
 	t.pos.z = 333.444;
+	p_("&md.trace[1]: %{p}", &t);
     }
+    {
+	auto& t = md.trace().back();
+	p_("md.trace().back().pos %{},%{},%{}",
+	   t.pos.x, t.pos.y, t.pos.z);
+	p_("&md.trace[1]: %{p}", &t);
+	t.pos.z = t.pos.z * 2.0;
+    }
+
     md.bin = std::vector<uint8_t>{0,1,2,3,4};
     
     std::ostringstream out;
