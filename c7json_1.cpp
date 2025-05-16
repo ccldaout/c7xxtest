@@ -13,11 +13,11 @@ public:
     c7::json_int y;
     c7::json_real z;
 
-    JsPos() {
-	c7json_member(x);
-	c7json_member(y);
-	c7json_member(z);
-    }
+    c7json_init(
+	c7json_member(x),
+	c7json_member(y),
+	c7json_member(z),
+	)
 };
 
 
@@ -26,10 +26,10 @@ public:
     c7::json_usec time;
     JsPos pos;
 
-    JsHis() {
-	c7json_member(time);
-	c7json_member(pos);
-    }
+    c7json_init(
+	c7json_member(time),
+	c7json_member(pos),
+	)
 };
 
 
@@ -40,12 +40,12 @@ public:
     c7::json_array<JsHis> trace;
     c7::json_bin bin;
 
-    MyData() {
-	c7json_member(pos);
-	c7json_member(books);
-	c7json_member(trace);
-	c7json_member(bin);
-    }
+    c7json_init(
+	c7json_member(pos),
+	c7json_member(books),
+	c7json_member(trace),
+	c7json_member(bin),
+	)
 };
 
 
@@ -56,16 +56,17 @@ public:
     c7::json_bin bin;
     JsPos pos2;
 
-    MyData2() {
-	c7json_member(trace);
-	c7json_member(books);
-	c7json_member(pos2);
-	c7json_member(bin);
-    }
+    c7json_init(
+	c7json_member(trace),
+	c7json_member(books),
+	c7json_member(pos2),
+	c7json_member(bin),
+	)
 };
 
 
 struct MyData3: public c7::json_object {
+    c7json_init()
 };
 
 

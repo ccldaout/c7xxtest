@@ -14,12 +14,12 @@ struct Song: public c7::json_object {
     c7::json_bin	audio;
     c7::json_bool	favorite;
 
-    Song() {
-	c7json_member(title);
-	c7json_member(duration_s);
-	c7json_member(audio);
-	c7json_member(favorite);
-    }
+    c7json_init(
+	c7json_member(title),
+	c7json_member(duration_s),
+	c7json_member(audio),
+	c7json_member(favorite),
+	)
 };
 
 
@@ -29,21 +29,21 @@ struct Album: public c7::json_object {
     c7::json_usec	release;
     c7::json_array<Song> songs;
 
-    Album() {
-	c7json_member(title);
-	c7json_member(artist);
-	c7json_member(release);
-	c7json_member(songs);
-    }
+    c7json_init(
+	c7json_member(title),
+	c7json_member(artist),
+	c7json_member(release),
+	c7json_member(songs),
+	)
 };
 
 
 struct Library: public c7::json_object {
     c7::json_array<Album> albums;
 
-    Library() {
-	c7json_member(albums);
-    }
+    c7json_init(
+	c7json_member(albums)
+	)
 };
 
 
