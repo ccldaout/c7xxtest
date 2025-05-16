@@ -2,6 +2,7 @@
 #include <c7defer.hpp>
 #include <c7delegate.hpp>
 #include <c7fd.hpp>
+#include <c7json.hpp>
 #include <c7proc.hpp>
 #include <c7thread.hpp>
 #include <c7result.hpp>
@@ -38,4 +39,5 @@ int main()
     SHOW(c7::thread::thread);
     SHOW(c7::result<>);
     SHOW(c7::result<long>);
+    SHOW(c7::json_object);
 }
