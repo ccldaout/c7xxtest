@@ -1,6 +1,8 @@
 #include <c7app.hpp>
 #include <c7json.hpp>
 #include <c7nseq/push.hpp>
+#include <c7nseq/transform.hpp>
+#include <c7nseq/vector.hpp>
 #include <c7utils/time.hpp>
 
 
@@ -8,52 +10,117 @@ using c7::p_;
 using c7::P_;
 
 
+/*[c7json:define]
+
+// 楽曲
+Song {
+    str		title;		// 曲名
+    int		duration_s;	// 演奏時間
+    bin		audio;		// オーディオデータ(バイト列)
+    bool	favorite;	// お気に入り
+}
+
+// アルバム
+Album {
+    str		title;		// アルバムタイトル
+    str		artist;		// アーティスト名
+    usec	release;	// リリース日時
+    Song[]	songs;		// 楽曲
+}
+
+// ライブラリ
+Library {
+    Album[]	albums;		// アルバムリスト
+}
+
+*/
+
+
+//[c7json:begin]
+
 struct Song: public c7::json_object {
-    c7::json_str	title;
-    c7::json_int	duration_s;
-    c7::json_bin	audio;
-    c7::json_bool	favorite;
+    c7::json_str title;
+    c7::json_int duration_s;
+    c7::json_bin audio;
+    c7::json_bool favorite;
+
+    using c7::json_object::json_object;
+
+    template <typename T0,
+              typename T1=c7::json_int,
+              typename T2=c7::json_bin,
+              typename T3=c7::json_bool>
+    explicit Song(T0&& a_title,
+                  T1&& a_duration_s=T1(),
+                  T2&& a_audio=T2(),
+                  T3&& a_favorite=T3()):
+	title(std::forward<T0>(a_title)),
+	duration_s(std::forward<T1>(a_duration_s)),
+	audio(std::forward<T2>(a_audio)),
+	favorite(std::forward<T3>(a_favorite)) {}
 
     c7json_init(
-	c7json_member(title),
-	c7json_member(duration_s),
-	c7json_member(audio),
-	c7json_member(favorite),
-	)
+        c7json_member(title),
+        c7json_member(duration_s),
+        c7json_member(audio),
+        c7json_member(favorite),
+        )
 };
-
 
 struct Album: public c7::json_object {
-    c7::json_str	title;
-    c7::json_str	artist;
-    c7::json_usec	release;
+    c7::json_str title;
+    c7::json_str artist;
+    c7::json_usec release;
     c7::json_array<Song> songs;
 
-    c7json_init(
-	c7json_member(title),
-	c7json_member(artist),
-	c7json_member(release),
-	c7json_member(songs),
-	)
-};
+    using c7::json_object::json_object;
 
+    template <typename T0,
+              typename T1=c7::json_str,
+              typename T2=c7::json_usec,
+              typename T3=c7::json_array<Song>>
+    explicit Album(T0&& a_title,
+                   T1&& a_artist=T1(),
+                   T2&& a_release=T2(),
+                   T3&& a_songs=T3()):
+	title(std::forward<T0>(a_title)),
+	artist(std::forward<T1>(a_artist)),
+	release(std::forward<T2>(a_release)),
+	songs(std::forward<T3>(a_songs)) {}
+
+    c7json_init(
+        c7json_member(title),
+        c7json_member(artist),
+        c7json_member(release),
+        c7json_member(songs),
+        )
+};
 
 struct Library: public c7::json_object {
     c7::json_array<Album> albums;
 
+    using c7::json_object::json_object;
+
+    template <typename T0>
+    explicit Library(T0&& a_albums):
+	albums(std::forward<T0>(a_albums)) {}
+
     c7json_init(
-	c7json_member(albums)
-	)
+        c7json_member(albums),
+        )
 };
+
+//[c7json:end]
 
 
 static void init_lib(Library& lib, const std::string& path)
 {
     {
-	Album a;
-	a.title = "Perfect Strangers";
-	a.artist = "Deep Purple";
-	a.release = c7::make_usec().year(1984).make();
+	Album a{
+	    "Perfect Strangers",
+	    "Deep Purple",
+	    c7::make_usec().year(1984).make(),
+	};
 	{
 	    auto& s = a.songs.extend();
 	    s.title = "Hungry Daze";
@@ -69,6 +136,7 @@ static void init_lib(Library& lib, const std::string& path)
 	a.title = "Asia";
 	a.artist = "Asia";
 	a.release = c7::make_usec().year(1982).make();
+#if 0
 	{
 	    Song s;
 	    s.title = "Heat of the moment";
@@ -77,6 +145,15 @@ static void init_lib(Library& lib, const std::string& path)
 	    s.favorite   = true;
 	    a.songs.push_back(std::move(s));
 	}
+#else
+	a.songs.push_back(Song{
+		"Heat of the moment",
+		    228,
+		    "heat of the moment"
+		    | c7::nseq::transform([](auto c){ return static_cast<uint8_t>(c); })
+		    | c7::nseq::to_vector(),
+		    true});
+#endif
     }
 
     if (auto res = c7::json_dump(lib, path, 2); !res) {

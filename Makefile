@@ -81,6 +81,7 @@ PREPRO    := $(shell python3 $(PY3DIR)/setup_dispatcher.py c7event_*.cpp 2>/dev/
 
 .PHONY: build
 build:
+	PYTHONPATH=$(PY3DIR) python3 -m replace_c7json c7json_2.cpp
 	@make -j$(MAKE_JOBS) --no-print-directory tests
 	@[[ $(BINDIR) -ef $(HOME)/tmp/bin ]] || ln -sf $(BINDIR)/* $(HOME)/tmp/bin/
 
