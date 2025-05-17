@@ -1,5 +1,6 @@
 #include <c7app.hpp>
 #include <c7json.hpp>
+#include <c7nseq/io.hpp>
 #include <c7nseq/push.hpp>
 #include <c7nseq/transform.hpp>
 #include <c7nseq/vector.hpp>
@@ -141,7 +142,12 @@ static void init_lib(Library& lib, const std::string& path)
 	    Song s;
 	    s.title = "Heat of the moment";
 	    s.duration_s = 228;
+# if 1
  	    "heat of the moment" | c7::nseq::push_back(s.audio());
+	    c7::nseq::mmap_r<uint8_t>("hotm.wav") | c7::nseq::push_back(s.audio());
+# else
+	    s.audio = c7::nseq::mmap_r<uint8_t>("hotm.wav") | c7::nseq::to_vector();
+# endif
 	    s.favorite   = true;
 	    a.songs.push_back(std::move(s));
 	}
@@ -149,9 +155,13 @@ static void init_lib(Library& lib, const std::string& path)
 	a.songs.push_back(Song{
 		"Heat of the moment",
 		    228,
+# if 1
 		    "heat of the moment"
 		    | c7::nseq::transform([](auto c){ return static_cast<uint8_t>(c); })
 		    | c7::nseq::to_vector(),
+# else
+		    c7::nseq::mmap_r<uint8_t>("hotm.wav") | c7::nseq::to_vector(),
+# endif
 		    true});
 #endif
     }
