@@ -26,12 +26,13 @@ Album {
     str		title;		// アルバムタイトル
     str		artist;		// アーティスト名
     usec	release;	// リリース日時
-    Song[]	songs;		// 楽曲
+    [Song]	songs;		// 楽曲
 }
 
 // ライブラリ
 Library {
-    Album[]	albums;		// アルバムリスト
+    [Album]	albums;		// アルバムリスト
+    {usec -> Song} history;
 }
 
 */
@@ -99,15 +100,20 @@ struct Album: public c7::json_object {
 
 struct Library: public c7::json_object {
     c7::json_array<Album> albums;
+    c7::json_dict<c7::json_usec, Song> history;
 
     using c7::json_object::json_object;
 
-    template <typename T0>
-    explicit Library(T0&& a_albums):
-	albums(std::forward<T0>(a_albums)) {}
+    template <typename T0,
+              typename T1=c7::json_dict<c7::json_usec, Song>>
+    explicit Library(T0&& a_albums,
+                     T1&& a_history=T1()):
+	albums(std::forward<T0>(a_albums)),
+	history(std::forward<T1>(a_history)) {}
 
     c7json_init(
         c7json_member(albums),
+        c7json_member(history),
         )
 };
 
