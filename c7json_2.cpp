@@ -32,7 +32,7 @@ Album {
 // ライブラリ
 Library {
     [Album]	albums;		// アルバムリスト
-    {usec -> Song} history;
+    {usec -> str} history;
 }
 
 */
@@ -100,12 +100,12 @@ struct Album: public c7::json_object {
 
 struct Library: public c7::json_object {
     c7::json_array<Album> albums;
-    c7::json_dict<c7::json_usec, Song> history;
+    c7::json_dict<c7::json_usec, c7::json_str> history;
 
     using c7::json_object::json_object;
 
     template <typename T0,
-              typename T1=c7::json_dict<c7::json_usec, Song>>
+              typename T1=c7::json_dict<c7::json_usec, c7::json_str>>
     explicit Library(T0&& a_albums,
                      T1&& a_history=T1()):
 	albums(std::forward<T0>(a_albums)),
@@ -196,6 +196,14 @@ int main(int argc, char **argv)
 	    c7error(res);
 	}
 	init_lib(lib, path);
+    } else {
+	if (lib.albums.empty()) {
+	    init_lib(lib, path);
+	}
+    }
+
+    for (const auto& [t, n]: lib.history) {
+	p_("history: %{t%Y %m/%d %H:%M:%S}, %{}", t, n);
     }
 
     for (auto& a: lib.albums) {
