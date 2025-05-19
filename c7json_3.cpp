@@ -17,6 +17,10 @@ using c7::P_;
 SongID { int v; }
 AlbumID { int v; }
 
+*/
+
+
+/*[c7json:define]
 // 楽曲
 Song {
     SongID	id;		// 楽曲ID
@@ -87,6 +91,30 @@ struct AlbumID: public c7::json_object {
         c7json_member(v),
         )
 };
+
+//[c7json:end]
+
+
+namespace std {
+
+template <>
+struct hash<SongID> {
+    size_t operator()(const SongID& s) const {
+	return hash<decltype(s.v)>()(s.v);
+    }
+};
+
+template <>
+struct hash<AlbumID> {
+    size_t operator()(const AlbumID& s) const {
+	return hash<decltype(s.v)>()(s.v);
+    }
+};
+
+}
+
+
+//[c7json:begin]
 
 struct Song: public c7::json_object {
     SongID id;
@@ -217,28 +245,8 @@ struct Library: public c7::json_object {
 //[c7json:end]
 
 
-namespace std {
-
-template <>
-struct hash<SongID> {
-    size_t operator()(const SongID& s) const {
-	return hash<decltype(s.v)>()(s.v);
-    }
-};
-
-template <>
-struct hash<AlbumID> {
-    size_t operator()(const AlbumID& s) const {
-	return hash<decltype(s.v)>()(s.v);
-    }
-};
-
-}
-
-
-
 int main(int argc, char **argv)
 {
     Library lb;
-    //auto it = lb.price.find(c7::json_pair<AlbumID, SongID>(AlbumID(0), SongID(1)));
+    auto it = lb.price.find(c7::json_pair<AlbumID, SongID>(AlbumID(0), SongID(1)));
 }
