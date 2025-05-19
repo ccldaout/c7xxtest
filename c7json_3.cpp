@@ -4,15 +4,16 @@
 #include <c7nseq/push.hpp>
 #include <c7nseq/transform.hpp>
 #include <c7nseq/vector.hpp>
+#include <c7path.hpp>
 #include <c7utils/time.hpp>
 
 
 using c7::p_;
 using c7::P_;
 
-
 struct SongID_tag {};
 struct AlbumID_tag {};
+
 
 /*[c7json:define]
 
@@ -325,6 +326,22 @@ static void init_data(Library& lb)
 
 int main(int argc, char **argv)
 {
+    auto db_path = c7::path::untildize("~/tmp/aa.json");
+
     Library lb;
-    init_data(lb);
+    if (auto res = c7::json_load(lb, db_path); !res && !res.has_what(ENOENT)) {
+	c7error(res);
+    }
+    if (lb.song_db.empty()) {
+	init_data(lb);
+	if (auto res = c7::json_dump(lb, db_path, 2); !res) {
+	    c7error(res);
+	}
+	p_("initialized: %{}", db_path);
+    } else {
+	if (auto res = c7::json_dump(lb, db_path, 3); !res) {
+	    c7error(res);
+	}
+	p_("re-writed");
+    }
 }
