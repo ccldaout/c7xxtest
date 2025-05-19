@@ -24,6 +24,9 @@ static void show(const char *s)
 
 int main()
 {
+    SHOW(std::string);
+    SHOW(std::istringstream);
+    SHOW(std::ostringstream);
     SHOW(std::vector<int>);
     SHOW(std::deque<int>);
     SHOW(std::list<int>);
@@ -40,4 +43,5 @@ int main()
     SHOW(c7::result<>);
     SHOW(c7::result<long>);
     SHOW(c7::json_object);
+    SHOW(c7::json_struct);
 }
