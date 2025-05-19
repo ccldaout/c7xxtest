@@ -360,9 +360,9 @@ static SongID
 find_by_location(const Library& lib, int x, int y, int z)
 {
     if (auto it = lib.map.find(Location(x, y, z)); it != lib.map.end()) {
-	return SongID{-1};
-    } else {
 	return (*it).second;
+    } else {
+	return SongID{-1};
     }
 }
 
