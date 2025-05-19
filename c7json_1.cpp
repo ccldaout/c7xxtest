@@ -112,7 +112,6 @@ int main(int argc, char **argv)
 
     MyData2 md2;
     {
-	p_("md2: check -> %{}", md2.check());
 	c7::json_dump(md2, std::cout, 4);
 	std::cout << '\n';
     }
@@ -125,7 +124,7 @@ int main(int argc, char **argv)
 
     std::ostringstream out2;
     c7::json_dump(md2, out2, 3);
-    p_("md2: check -> %{}\n<%{}>", md2.check(), out2.str());
+    p_("md2: out2 <%{}>", out2.str());
     P_("md2.bin: { ");
     for (auto u: md2.bin()) {
 	P_("<%{}> ", static_cast<int>(u));
@@ -147,7 +146,6 @@ int main(int argc, char **argv)
 
     MyData3 md3;
     {
-	p_("md3: check -> %{}", md3.check());
 	c7::json_dump(md3, std::cout, 4);
 	std::cout << '\n';
     }
@@ -159,5 +157,5 @@ int main(int argc, char **argv)
 
     std::ostringstream out3;
     c7::json_dump(md3, out3, 3);
-    p_("md3: check -> %{}\n<%{}>", md3.check(), out3.str());
+    p_("md3: out3 <%{}>", out3.str());
 }
