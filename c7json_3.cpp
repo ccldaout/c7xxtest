@@ -267,6 +267,12 @@ static c7::usec_t release(int year)
     return c7::make_usec().year(year).make();
 }
 
+static c7::usec_t at_time()
+{
+    static uint32_t n = 100;
+    return c7::make_usec().now().make() - (n--) * 789 * C7_TIME_S_us;
+}
+
 static void init_data(Library& lb)
 {
     // {SongID -> Song}	song_db;	// 楽曲DB
@@ -301,10 +307,20 @@ static void init_data(Library& lb)
 
     // {usec -> <AlbumID, SongID>}	history;
 
-    
+    using alsong = c7::json_pair<AlbumID, SongID>;
+
+    lb.history
+	.insert_or_assign(at_time(), alsong(200, 0))
+	.insert_or_assign(at_time(), alsong(204, 10))
+	;
 
     // {<AlbumID, SongID> -> int} price;
     
+    lb.price
+	.insert_or_assign(alsong(200, 0), 200)
+	.insert_or_assign(alsong(201, 1), 200)
+	.insert_or_assign(alsong(201, 2), 250)
+	;
 }
 
 int main(int argc, char **argv)
