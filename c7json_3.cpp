@@ -26,7 +26,7 @@ AlbumID = tagged_int<AlbumID_tag>;
 
 /*[c7json:define]
 // 楽曲
-Song {
+Song! {
     SongID	id;		// 楽曲ID
     str		title;		// 曲名
     int		duration_s;	// 演奏時間
@@ -75,14 +75,14 @@ struct hash<AlbumID> {
 
 //[c7json:begin]
 
-struct Song: public c7::json_object {
+struct Song: public c7::json_struct {
     SongID id;
     c7::json_str title;
     c7::json_int duration_s;
     c7::json_bin audio;
     c7::json_bool favorite;
 
-    using c7::json_object::json_object;
+    using c7::json_struct::json_struct;
 
     template <typename T0,
               typename T1=c7::json_str,
