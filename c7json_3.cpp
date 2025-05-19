@@ -30,8 +30,8 @@ Song! {
     SongID	id;		// 楽曲ID
     str		title;		// 曲名
     int		duration_s;	// 演奏時間
-    bin		audio;		// オーディオデータ(バイト列)
     bool	favorite;	// お気に入り
+    bin		audio;		// オーディオデータ(バイト列)
 }
 
 // 楽曲
@@ -88,33 +88,33 @@ struct Song: public c7::json_struct {
     SongID id;
     c7::json_str title;
     c7::json_int duration_s;
-    c7::json_bin audio;
     c7::json_bool favorite;
+    c7::json_bin audio;
 
     using c7::json_struct::json_struct;
 
     template <typename T0,
               typename T1=c7::json_str,
               typename T2=c7::json_int,
-              typename T3=c7::json_bin,
-              typename T4=c7::json_bool>
+              typename T3=c7::json_bool,
+              typename T4=c7::json_bin>
     explicit Song(T0&& a_id,
                   T1&& a_title=T1(),
                   T2&& a_duration_s=T2(),
-                  T3&& a_audio=T3(),
-                  T4&& a_favorite=T4()):
+                  T3&& a_favorite=T3(),
+                  T4&& a_audio=T4()):
 	id(std::forward<T0>(a_id)),
 	title(std::forward<T1>(a_title)),
 	duration_s(std::forward<T2>(a_duration_s)),
-	audio(std::forward<T3>(a_audio)),
-	favorite(std::forward<T4>(a_favorite)) {}
+	favorite(std::forward<T3>(a_favorite)),
+	audio(std::forward<T4>(a_audio)) {}
 
     bool operator==(const Song& o) const {
         return (id == o.id &&
                 title == o.title &&
                 duration_s == o.duration_s &&
-                audio == o.audio &&
-                favorite == o.favorite);
+                favorite == o.favorite &&
+                audio == o.audio);
     }
 
     bool operator!=(const Song& o) const { return !(*this == o); }
@@ -123,8 +123,8 @@ struct Song: public c7::json_struct {
         c7json_member(id),
         c7json_member(title),
         c7json_member(duration_s),
-        c7json_member(audio),
         c7json_member(favorite),
+        c7json_member(audio),
         )
 };
 
@@ -257,13 +257,58 @@ struct Library: public c7::json_object {
 //[c7json:end]
 
 
+static int duration(int min, int sec)
+{
+    return min * 60 + sec;
+}
+
+static c7::usec_t release(int year)
+{
+    return c7::make_usec().year(year).make();
+}
+
+static void init_data(Library& lb)
+{
+    // {SongID -> Song}	song_db;	// 楽曲DB
+
+    lb.song_db
+	.insert_or_assign( 0, Song{0, "Child's Anthem", duration(2, 45), false})	//  0: Toto 1
+	.insert_or_assign( 1, Song{1, "Rosana", duration(5, 31), false})		//  1: Toto IV
+	.insert_or_assign( 2, Song{2, "Africa", duration(4, 55), true})			//  2: ,,
+	.insert_or_assign( 3, Song{3, "Pamela", duration(5, 10), true})			//  3: The Seventh One
+	.insert_or_assign( 4, Song{4, "Heat Of The Moment", duration(3, 48), true})	//  4: Asia
+	.insert_or_assign( 5, Song{5, "Only Time Will Tell", duration(4, 45), true})	//  5: ,,
+	.insert_or_assign( 6, Song{6, "Don't Cry", duration(3, 30), true})		//  6: Alpha
+	.insert_or_assign( 7, Song{7, "Open Your Eyes", duration(6, 24), true})		//  7: ,,
+	.insert_or_assign( 8, Song{8, "Go", duration(4, 7), false})			//  8: Astra
+	.insert_or_assign( 9, Song{9, "Rock and Roll Dream", duration(6, 49), true})	//  9: ,,
+	.insert_or_assign(10, Song{10, "After the War", duration(5, 8), false})		// 10: ,,
+	.insert_or_assign(11, Song{11, "Never Again", duration(4, 56), false})		// 11: Phoenix
+	.insert_or_assign(12, Song{12, "An Extraordinay Life", duration(4, 57), true})	// 12: ,,
+	;
+
+    // {AlbumID -> Album}	album_db;	// アルバムDB
+
+    lb.album_db
+	.insert_or_assign(200, Album{200, "Toto", "Toto", release(1978), {SongID(0)}})
+	.insert_or_assign(201, Album{201, "Toto IV", "Toto", release(1982), {SongID(1), SongID(2)}})
+	.insert_or_assign(202, Album{202, "The Seventh One", "Toto", release(1988), {SongID(3)}})
+	.insert_or_assign(203, Album{203, "Asia", "Asia", release(1982), {SongID(4), SongID(5)}})
+	.insert_or_assign(203, Album{203, "Alpha", "Asia", release(1983), {SongID(6), SongID(7)}})
+	.insert_or_assign(204, Album{204, "Astra", "Asia", release(1985), {SongID(8), SongID(9), SongID(10)}})
+	.insert_or_assign(205, Album{205, "Phoenix", "Asia", release(2008), {SongID(11), SongID(12)}})
+	;
+
+    // {usec -> <AlbumID, SongID>}	history;
+
+    
+
+    // {<AlbumID, SongID> -> int} price;
+    
+}
+
 int main(int argc, char **argv)
 {
     Library lb;
-    AlbumID a{1};
-    SongID s{20};
-    auto it = lb.price.find(c7::json_pair<AlbumID, SongID>(a, s));
-    it == lb.price.end();
-    p_("sizeof(   Song):%{}", sizeof(Song));
-    p_("sizeof(OldSong):%{}", sizeof(OldSong));
+    init_data(lb);
 }
