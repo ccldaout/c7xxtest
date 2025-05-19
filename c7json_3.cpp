@@ -249,4 +249,5 @@ int main(int argc, char **argv)
 {
     Library lb;
     auto it = lb.price.find(c7::json_pair<AlbumID, SongID>(AlbumID(0), SongID(1)));
+    it == lb.price.end();
 }
