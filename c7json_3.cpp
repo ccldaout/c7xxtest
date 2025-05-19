@@ -324,24 +324,61 @@ static void init_data(Library& lb)
 	;
 }
 
+static std::pair<std::string, std::string>
+find_music(const Library& lib, AlbumID aid, SongID sid)
+{
+    std::string album = "unknown";
+    std::string song  = "unknown";
+    if (auto it = lib.album_db.find(aid); it != lib.album_db.end()) {
+	album = (*it).second.title;
+    }
+    if (auto it = lib.song_db.find(sid); it != lib.song_db.end()) {
+	song = (*it).second.title;
+    }
+    return {album, song};
+}
+
+static void show_history(const Library& lib)
+{
+    for (auto [tm, id_pair]: lib.history) {
+	auto [aid, sid] = id_pair();
+	auto [album, song] = find_music(lib, aid, sid);
+	p_("%{t%Y %m/%d %H:%M:%S} %{}:%{} %{}:%{}", tm, aid, album, sid, song);
+    }
+}
+
 int main(int argc, char **argv)
 {
     auto db_path = c7::path::untildize("~/tmp/aa.json");
 
-    Library lb;
-    if (auto res = c7::json_load(lb, db_path); !res && !res.has_what(ENOENT)) {
+    Library lib;
+    if (auto res = c7::json_load(lib, db_path); !res && !res.has_what(ENOENT)) {
 	c7error(res);
     }
-    if (lb.song_db.empty()) {
-	init_data(lb);
-	if (auto res = c7::json_dump(lb, db_path, 2); !res) {
+    if (lib.song_db.empty()) {
+	init_data(lib);
+	if (auto res = c7::json_dump(lib, db_path, 2); !res) {
 	    c7error(res);
 	}
 	p_("initialized: %{}", db_path);
-    } else {
-	if (auto res = c7::json_dump(lb, db_path, 3); !res) {
+    }
+
+    show_history(lib);
+
+    if (argc == 3) {
+	AlbumID aid = std::stol(argv[1]);
+	SongID  sid = std::stol(argv[2]);
+	auto [album, song] = find_music(lib, aid, sid);
+	if (album.empty() || song.empty()) {
+	    c7exit("not found");
+	}
+
+	using alsong = c7::json_pair<AlbumID, SongID>;
+	lib.history.insert_or_assign(c7::time_us(), alsong(aid, sid));
+	
+	if (auto res = c7::json_dump(lib, db_path, 2); !res) {
 	    c7error(res);
 	}
-	p_("re-writed");
+	p_("updated");
     }
 }
