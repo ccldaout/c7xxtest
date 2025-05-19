@@ -11,11 +11,15 @@ using c7::p_;
 using c7::P_;
 
 
+struct SongID_tag {};
+struct AlbumID_tag {};
+
 /*[c7json:define]
 
 // ID
-SongID { int v; }
-AlbumID { int v; }
+SongID = tagged_int<SongID_tag>;
+AlbumID = tagged_int<AlbumID_tag>;
+//AlbumID { int v; }
 
 */
 
@@ -52,67 +56,22 @@ Library {
 
 //[c7json:begin]
 
-struct SongID: public c7::json_object {
-    c7::json_int v;
+using SongID = c7::json_tagged_int<SongID_tag>;
 
-    using c7::json_object::json_object;
-
-    template <typename T0>
-    explicit SongID(T0&& a_v):
-	v(std::forward<T0>(a_v)) {}
-
-    bool operator==(const SongID& o) const {
-        return (v == o.v);
-    }
-
-    bool operator!=(const SongID& o) const { return !(*this == o); }
-
-    c7json_init(
-        c7json_member(v),
-        )
-};
-
-struct AlbumID: public c7::json_object {
-    c7::json_int v;
-
-    using c7::json_object::json_object;
-
-    template <typename T0>
-    explicit AlbumID(T0&& a_v):
-	v(std::forward<T0>(a_v)) {}
-
-    bool operator==(const AlbumID& o) const {
-        return (v == o.v);
-    }
-
-    bool operator!=(const AlbumID& o) const { return !(*this == o); }
-
-    c7json_init(
-        c7json_member(v),
-        )
-};
+using AlbumID = c7::json_tagged_int<AlbumID_tag>;
 
 //[c7json:end]
 
-
+#if 0
 namespace std {
-
-template <>
-struct hash<SongID> {
-    size_t operator()(const SongID& s) const {
-	return hash<decltype(s.v)>()(s.v);
-    }
-};
-
 template <>
 struct hash<AlbumID> {
     size_t operator()(const AlbumID& s) const {
 	return hash<decltype(s.v)>()(s.v);
     }
 };
-
 }
-
+#endif
 
 //[c7json:begin]
 
@@ -248,6 +207,8 @@ struct Library: public c7::json_object {
 int main(int argc, char **argv)
 {
     Library lb;
-    auto it = lb.price.find(c7::json_pair<AlbumID, SongID>(AlbumID(0), SongID(1)));
+    AlbumID a{1};
+    SongID s{20};
+    auto it = lb.price.find(c7::json_pair<AlbumID, SongID>(a, s));
     it == lb.price.end();
 }

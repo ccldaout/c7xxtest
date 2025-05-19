@@ -833,7 +833,7 @@ $(BINDIR)/c7json_1: c7json_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
  $(INCDIR)/c7utils/time.hpp $(INCDIR)/c7json.hpp $(INCDIR)/c7file.hpp \
  $(INCDIR)/c7utils/memory.hpp $(INCDIR)/c7json/proxy.hpp \
- $(INCDIR)/c7json/lexer.hpp
+ $(INCDIR)/c7hash.hpp $(INCDIR)/c7json/lexer.hpp
 $(BINDIR)/c7json_2: c7json_2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
@@ -842,8 +842,24 @@ $(BINDIR)/c7json_2: c7json_2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
  $(INCDIR)/c7json.hpp $(INCDIR)/c7file.hpp \
  $(INCDIR)/c7utils/memory.hpp $(INCDIR)/c7json/proxy.hpp \
- $(INCDIR)/c7json/lexer.hpp $(INCDIR)/c7nseq/push.hpp \
- $(INCDIR)/c7nseq/_cmn.hpp $(INCDIR)/c7utils/time.hpp
+ $(INCDIR)/c7hash.hpp $(INCDIR)/c7json/lexer.hpp \
+ $(INCDIR)/c7nseq/io.hpp $(INCDIR)/c7fd.hpp $(INCDIR)/c7nseq/_cmn.hpp \
+ $(INCDIR)/c7nseq/c_array.hpp $(INCDIR)/c7nseq/push.hpp \
+ $(INCDIR)/c7nseq/transform.hpp $(INCDIR)/c7nseq/_iter_ops.hpp \
+ $(INCDIR)/c7nseq/vector.hpp $(INCDIR)/c7utils/time.hpp
+$(BINDIR)/c7json_3: c7json_3.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
+ $(INCDIR)/c7json.hpp $(INCDIR)/c7file.hpp \
+ $(INCDIR)/c7utils/memory.hpp $(INCDIR)/c7json/proxy.hpp \
+ $(INCDIR)/c7hash.hpp $(INCDIR)/c7json/lexer.hpp \
+ $(INCDIR)/c7nseq/io.hpp $(INCDIR)/c7fd.hpp $(INCDIR)/c7nseq/_cmn.hpp \
+ $(INCDIR)/c7nseq/c_array.hpp $(INCDIR)/c7nseq/push.hpp \
+ $(INCDIR)/c7nseq/transform.hpp $(INCDIR)/c7nseq/_iter_ops.hpp \
+ $(INCDIR)/c7nseq/vector.hpp $(INCDIR)/c7utils/time.hpp
 $(BINDIR)/c7mlog_1: c7mlog_1.cpp $(INCDIR)/c7mlog.hpp \
  $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp \
  $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
@@ -1044,7 +1060,7 @@ $(BINDIR)/c7sizeof_1: c7sizeof_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
  $(INCDIR)/c7fd.hpp $(INCDIR)/c7json.hpp $(INCDIR)/c7file.hpp \
  $(INCDIR)/c7utils/memory.hpp $(INCDIR)/c7json/proxy.hpp \
- $(INCDIR)/c7json/lexer.hpp $(INCDIR)/c7proc.hpp \
+ $(INCDIR)/c7hash.hpp $(INCDIR)/c7json/lexer.hpp $(INCDIR)/c7proc.hpp \
  $(INCDIR)/c7string/strvec.hpp $(INCDIR)/c7thread.hpp \
  $(INCDIR)/c7thread/spinlock.hpp $(INCDIR)/c7thread/mutex.hpp \
  $(INCDIR)/c7thread/condvar.hpp $(INCDIR)/c7thread/thread.hpp
