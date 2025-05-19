@@ -53,12 +53,16 @@ Album {
     [SongID]	songs;		// 楽曲
 }
 
+// ロケーション (x,y,z)
+Location = (int, int, int);
+
 // ライブラリ
 Library {
     {SongID -> Song}	song_db;	// 楽曲DB
     {AlbumID -> Album}	album_db;	// アルバムDB
     {usec -> <AlbumID, SongID>}	history;
     {<AlbumID, SongID> -> int} price;
+    {Location -> SongID} map;
 }
 
 */
@@ -217,32 +221,39 @@ struct Album: public c7::json_object {
         )
 };
 
+using Location = c7::json_tuple<c7::json_int, c7::json_int, c7::json_int>;
+
 struct Library: public c7::json_object {
     c7::json_dict<SongID, Song> song_db;
     c7::json_dict<AlbumID, Album> album_db;
     c7::json_dict<c7::json_usec, c7::json_pair<AlbumID, SongID>> history;
     c7::json_dict<c7::json_pair<AlbumID, SongID>, c7::json_int> price;
+    c7::json_dict<Location, SongID> map;
 
     using c7::json_object::json_object;
 
     template <typename T0,
               typename T1=c7::json_dict<AlbumID, Album>,
               typename T2=c7::json_dict<c7::json_usec, c7::json_pair<AlbumID, SongID>>,
-              typename T3=c7::json_dict<c7::json_pair<AlbumID, SongID>, c7::json_int>>
+              typename T3=c7::json_dict<c7::json_pair<AlbumID, SongID>, c7::json_int>,
+              typename T4=c7::json_dict<Location, SongID>>
     explicit Library(T0&& a_song_db,
                      T1&& a_album_db=T1(),
                      T2&& a_history=T2(),
-                     T3&& a_price=T3()):
+                     T3&& a_price=T3(),
+                     T4&& a_map=T4()):
 	song_db(std::forward<T0>(a_song_db)),
 	album_db(std::forward<T1>(a_album_db)),
 	history(std::forward<T2>(a_history)),
-	price(std::forward<T3>(a_price)) {}
+	price(std::forward<T3>(a_price)),
+	map(std::forward<T4>(a_map)) {}
 
     bool operator==(const Library& o) const {
         return (song_db == o.song_db &&
                 album_db == o.album_db &&
                 history == o.history &&
-                price == o.price);
+                price == o.price &&
+                map == o.map);
     }
 
     bool operator!=(const Library& o) const { return !(*this == o); }
@@ -252,6 +263,7 @@ struct Library: public c7::json_object {
         c7json_member(album_db),
         c7json_member(history),
         c7json_member(price),
+        c7json_member(map),
         )
 };
 
@@ -322,6 +334,12 @@ static void init_data(Library& lb)
 	.insert_or_assign(alsong(201, 1), 200)
 	.insert_or_assign(alsong(201, 2), 250)
 	;
+
+    // {Location -> SongID} map;
+    lb.map
+	.insert_or_assign(Location{1, 2, 3}, 9)
+	.insert_or_assign(Location{7, 3, 5}, 3)
+	;
 }
 
 static std::pair<std::string, std::string>
@@ -336,6 +354,16 @@ find_music(const Library& lib, AlbumID aid, SongID sid)
 	song = (*it).second.title;
     }
     return {album, song};
+}
+
+static SongID
+find_by_location(const Library& lib, int x, int y, int z)
+{
+    if (auto it = lib.map.find(Location(x, y, z)); it != lib.map.end()) {
+	return SongID{-1};
+    } else {
+	return (*it).second;
+    }
 }
 
 static void show_history(const Library& lib)
@@ -380,5 +408,11 @@ int main(int argc, char **argv)
 	    c7error(res);
 	}
 	p_("updated");
+    } else if (argc == 4) {
+	int x = std::stol(argv[1]);
+	int y = std::stol(argv[2]);
+	int z = std::stol(argv[3]);
+	auto id = find_by_location(lib, x, y, z);
+	p_("(%{}, %{}, %{}) -> SongID: %{}", x, y, z, id);
     }
 }
