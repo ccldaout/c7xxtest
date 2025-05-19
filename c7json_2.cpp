@@ -61,6 +61,15 @@ struct Song: public c7::json_object {
 	audio(std::forward<T2>(a_audio)),
 	favorite(std::forward<T3>(a_favorite)) {}
 
+    bool operator==(const Song& o) const {
+        return (title == o.title &&
+                duration_s == o.duration_s &&
+                audio == o.audio &&
+                favorite == o.favorite);
+    }
+
+    bool operator!=(const Song& o) const { return !(*this == o); }
+
     c7json_init(
         c7json_member(title),
         c7json_member(duration_s),
@@ -90,6 +99,15 @@ struct Album: public c7::json_object {
 	release(std::forward<T2>(a_release)),
 	songs(std::forward<T3>(a_songs)) {}
 
+    bool operator==(const Album& o) const {
+        return (title == o.title &&
+                artist == o.artist &&
+                release == o.release &&
+                songs == o.songs);
+    }
+
+    bool operator!=(const Album& o) const { return !(*this == o); }
+
     c7json_init(
         c7json_member(title),
         c7json_member(artist),
@@ -110,6 +128,13 @@ struct Library: public c7::json_object {
                      T1&& a_history=T1()):
 	albums(std::forward<T0>(a_albums)),
 	history(std::forward<T1>(a_history)) {}
+
+    bool operator==(const Library& o) const {
+        return (albums == o.albums &&
+                history == o.history);
+    }
+
+    bool operator!=(const Library& o) const { return !(*this == o); }
 
     c7json_init(
         c7json_member(albums),
