@@ -8,8 +8,11 @@
 #include <c7result.hpp>
 #include <deque>
 #include <list>
+#include <map>
+#include <set>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 
 
 template <typename T>
@@ -22,6 +25,10 @@ static void show(const char *s)
 #define SHOW(T)		show<T>(#T)
 
 
+using map_str_int = std::map<std::string, int>;
+using unordered_map_str_int = std::unordered_map<std::string, int>;
+
+
 int main()
 {
     SHOW(std::string);
@@ -30,9 +37,11 @@ int main()
     SHOW(std::vector<int>);
     SHOW(std::deque<int>);
     SHOW(std::list<int>);
+    SHOW(map_str_int);
+    SHOW(unordered_map_str_int);
+    SHOW(std::set<std::string>);
+    SHOW(std::unordered_set<std::string>);
     SHOW(std::function<void()>);
-    using map_string_int = std::unordered_map<std::string, int>;
-    SHOW(map_string_int);
     SHOW(c7::defer);
     SHOW(c7::delegate<void>);
     SHOW(c7::fd);
