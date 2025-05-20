@@ -40,13 +40,16 @@ public:
     c7::json_array<JsHis> trace;
     c7::json_bin bin;
 
-    c7json_init(
-	c7json_member(pos),
-	c7json_member(books),
-	c7json_member(trace),
-	c7json_member(bin),
-	)
+    c7json_init_declare();
 };
+
+c7json_init_implement(
+    MyData,
+    c7json_member(pos),
+    c7json_member(books),
+    c7json_member(trace),
+    c7json_member(bin),
+    )
 
 
 struct MyData2: public c7::json_object {
