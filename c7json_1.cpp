@@ -114,10 +114,12 @@ int main(int argc, char **argv)
     //
 
     MyData2 md2;
+    p_("md2: empty");
     {
 	c7::json_dump(md2, std::cout, 4);
 	std::cout << '\n';
     }
+    p_("md2: empty end");
 
     std::istringstream in2{out.str()};
 
@@ -148,10 +150,12 @@ int main(int argc, char **argv)
     //
 
     MyData3 md3;
+    p_("md3: empty");
     {
 	c7::json_dump(md3, std::cout, 4);
 	std::cout << '\n';
     }
+    p_("md3: empty end");
 
     std::istringstream in3{out.str()};
     if (auto res = c7::json_load(md3, in3); !res) {
