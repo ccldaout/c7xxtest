@@ -32,24 +32,6 @@ c7json_init_implement(
     c7json_member(audio),
 )
 
-bool OldSong::operator==(const OldSong& o) const
-{
-    return (id == o.id &&
-                title == o.title &&
-                duration_s == o.duration_s &&
-                audio == o.audio &&
-                favorite == o.favorite);
-}
-
-c7json_init_implement(
-    OldSong,
-    c7json_member(id),
-    c7json_member(title),
-    c7json_member(duration_s),
-    c7json_member(audio),
-    c7json_member(favorite),
-)
-
 bool Album::operator==(const Album& o) const
 {
     return (id == o.id &&

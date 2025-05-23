@@ -21,25 +21,16 @@ AlbumID = tagged_int<AlbumID_tag>;
 
 /*[c7json:define]
 // 楽曲
-Song! {
+Song ! {
     SongID	id;		// 楽曲ID
     str		title;		// 曲名
     int		duration_s;	// 演奏時間
     bool	favorite;	// お気に入り
     bin		audio;		// オーディオデータ(バイト列)
-}
-
-// 楽曲
-OldSong {
-    SongID	id;		// 楽曲ID
-    str		title;		// 曲名
-    int		duration_s;	// 演奏時間
-    bin		audio;		// オーディオデータ(バイト列)
-    bool	favorite;	// お気に入り
 }
 
 // アルバム
-Album {
+Album ! {
     AlbumID	id;		// アルバムID
     str		title;		// アルバムタイトル
     str		artist;		// アーティスト名
@@ -115,46 +106,14 @@ struct Song: public c7::json_struct {
     c7json_init_declare();
 };
 
-struct OldSong: public c7::json_object {
-    SongID id;
-    c7::json_str title;
-    c7::json_int duration_s;
-    c7::json_bin audio;
-    c7::json_bool favorite;
-
-    using c7::json_object::json_object;
-
-    template <typename T0,
-              typename T1=c7::json_str,
-              typename T2=c7::json_int,
-              typename T3=c7::json_bin,
-              typename T4=c7::json_bool>
-    explicit OldSong(T0&& a_id,
-                     T1&& a_title=T1(),
-                     T2&& a_duration_s=T2(),
-                     T3&& a_audio=T3(),
-                     T4&& a_favorite=T4()):
-	id(std::forward<T0>(a_id)),
-	title(std::forward<T1>(a_title)),
-	duration_s(std::forward<T2>(a_duration_s)),
-	audio(std::forward<T3>(a_audio)),
-	favorite(std::forward<T4>(a_favorite)) {}
-
-    bool operator==(const OldSong& o) const;
-
-    bool operator!=(const OldSong& o) const { return !(*this == o); }
-
-    c7json_init_declare();
-};
-
-struct Album: public c7::json_object {
+struct Album: public c7::json_struct {
     AlbumID id;
     c7::json_str title;
     c7::json_str artist;
     c7::json_usec release;
     c7::json_array<SongID> songs;
 
-    using c7::json_object::json_object;
+    using c7::json_struct::json_struct;
 
     template <typename T0,
               typename T1=c7::json_str,
