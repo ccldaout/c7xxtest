@@ -11,9 +11,34 @@ int main()
 	shared_port sp{2};
 	sp.write("hello\n", 6);
 
+	p_("before wp = sp;");
+	p_("sp == wp:%{}", sp == wp);
+	p_("wp == sp:%{}", wp == sp);
+	p_("sp != wp:%{}", sp != wp);
+	p_("wp != sp:%{}", wp != sp);
+
 	wp = sp;
+
+	p_("after wp = sp;");
+	p_("sp == wp:%{}", sp == wp);
+	p_("wp == sp:%{}", wp == sp);
+	p_("sp != wp:%{}", sp != wp);
+	p_("wp != sp:%{}", wp != sp);
+
 	if (auto sp2 = wp.lock(); sp2) {
 	    sp2.write("hello 2\n", 8);
+	    p_("after sp2 = wp.lock;");
+	    p_("sp2 == wp :%{}", sp2 == wp);
+	    p_("wp  == sp2:%{}", wp == sp2);
+	    p_("sp2 != wp :%{}", sp2 != wp);
+	    p_("wp  != sp2:%{}", wp != sp2);
+	    p_("sp2 == sp :%{}", sp2 == sp);
+	    p_("sp2 != sp :%{}", sp2 != sp);
+
+	    shared_port sp3{3};
+	    p_("sp2 == sp3 :%{}", sp2 == sp3);
+	    p_("sp2 != sp3 :%{}", sp2 != sp3);
+
 	} else {
 	    c7echo("sp2 is false");
 	}
