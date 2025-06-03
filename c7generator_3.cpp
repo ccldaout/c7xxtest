@@ -59,11 +59,17 @@ private:
 
     void generate(gen_output& out) {
 	for (;;) {
+	    p_("generator: before out << inst_BEG");
 	    out << inst_BEG{};
+	    p_("generator: after  out << inst_BEG");
+	    p_("generator: before out << inst_END");
 	    out << inst_END{};
+	    p_("generator: after  out << inst_END");
 	    if (stop_) {
 		for (;;) {
+		    p_("generator: before out << inst_FIN");
 		    out << inst_FIN{};
+		    p_("generator: after  out << inst_FIN");
 		}
 	    }
 	}
