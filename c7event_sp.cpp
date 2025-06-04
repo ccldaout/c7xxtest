@@ -12,6 +12,7 @@ int main()
 	sp.write("hello\n", 6);
 
 	p_("before wp = sp;");
+	p_("wp:%{}", wp);
 	p_("sp == wp:%{}", sp == wp);
 	p_("wp == sp:%{}", wp == sp);
 	p_("sp != wp:%{}", sp != wp);
@@ -20,6 +21,7 @@ int main()
 	wp = sp;
 
 	p_("after wp = sp;");
+	p_("wp:%{}", wp);
 	p_("sp == wp:%{}", sp == wp);
 	p_("wp == sp:%{}", wp == sp);
 	p_("sp != wp:%{}", sp != wp);
