@@ -5,12 +5,10 @@
 #include <cstring>
 #include <unistd.h>
 
-#define UNPATH c7::path::untildize("~/tmp/UN.socket")
-
-static void server()
+static void server(const std::string& addr)
 {
     c7::socket sock;
-    if (auto res = c7::unix_dg_binded(UNPATH); !res) {
+    if (auto res = c7::unix_dg_binded(addr); !res) {
 	c7error(res);
     } else {
 	sock = std::move(res.value());
@@ -36,7 +34,7 @@ static void server()
     }
 }
 
-static void client()
+static void client(const std::string&addr)
 {
     c7::socket sock;
     if (auto res = c7::unix_dg_binded(); !res) {
@@ -48,7 +46,7 @@ static void client()
 	c7echo("self: %{}", res.value());
     }
 
-    auto res = c7::sockaddr_unix(UNPATH);
+    auto res = c7::sockaddr_unix(addr);
     if (!res) {
 	c7error(res);
     }
@@ -67,20 +65,25 @@ static void client()
     if (!iores) {
 	c7error("recvfrom failed: %{}", iores);
     }
+    c7echo("actual peer: %{}, family: %{}", peer, peer.unix.sun_family);
 
     c7echo("recv: %{}", buffer);
 }
 
 int main(int argc, char **argv)
 {
-    if (argc != 2) {
-	c7exit("Usage: %{} s|c", c7::app::progname);
+    if (argc != 3) {
+	c7exit("Usage: %{} addr s|c", c7::app::progname);
     }
 
-    if (*argv[1] == 's') {
-	server();
+    std::string addr{" "};
+    addr += argv[1];
+    addr[0] = 0;
+
+    if (*argv[2] == 's') {
+	server(addr);
     } else {
-	client();
+	client(addr);
     }
 }
 
