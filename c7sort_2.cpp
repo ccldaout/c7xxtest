@@ -9,7 +9,7 @@
 #include <iterator>
 #include <random>
 
-#define N_ELM	100000
+#define N_ELM	500000
 
 struct elm_t {
     elm_t() = default;
