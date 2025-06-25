@@ -673,7 +673,7 @@ $(BINDIR)/c7event_sp: c7event_sp.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7event/shared_port.hpp $(INCDIR)/c7event/port.hpp \
  $(INCDIR)/c7socket.hpp $(INCDIR)/c7fd.hpp \
  $(INCDIR)/c7event/traits.hpp $(INCDIR)/c7thread/mutex.hpp
-$(BINDIR)/c7event_submit: c7event_submit.cpp $(INCDIR)/c7app.hpp \
+$(BINDIR)/c7event_submit1: c7event_submit1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
  $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
@@ -682,6 +682,22 @@ $(BINDIR)/c7event_submit: c7event_submit.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7thread/thread.hpp $(INCDIR)/c7utils.hpp \
  $(INCDIR)/c7utils/c_array.hpp $(INCDIR)/c7utils/endian.hpp \
  $(INCDIR)/c7utils/loop_assist.hpp $(INCDIR)/c7utils/memory.hpp \
+ $(INCDIR)/c7utils/movable_capture.hpp $(INCDIR)/c7utils/passwd.hpp \
+ $(INCDIR)/c7utils/spinlock.hpp $(INCDIR)/c7utils/storage.hpp \
+ $(INCDIR)/c7utils/time.hpp $(INCDIR)/c7event/submit.hpp \
+ $(INCDIR)/c7event/monitor.hpp $(INCDIR)/c7thread/mutex.hpp \
+ $(INCDIR)/c7fd.hpp $(INCDIR)/c7thread/queue.hpp \
+ $(INCDIR)/c7thread/_queue.hpp $(INCDIR)/c7thread/condvar.hpp
+$(BINDIR)/c7event_submit2: c7event_submit2.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
+ $(INCDIR)/c7dconf.hpp $(INCDIR)/c7file.hpp \
+ $(INCDIR)/c7utils/memory.hpp $(INCDIR)/c7thread/thread.hpp \
+ $(INCDIR)/c7utils.hpp $(INCDIR)/c7utils/c_array.hpp \
+ $(INCDIR)/c7utils/endian.hpp $(INCDIR)/c7utils/loop_assist.hpp \
  $(INCDIR)/c7utils/movable_capture.hpp $(INCDIR)/c7utils/passwd.hpp \
  $(INCDIR)/c7utils/spinlock.hpp $(INCDIR)/c7utils/storage.hpp \
  $(INCDIR)/c7utils/time.hpp $(INCDIR)/c7event/submit.hpp \
@@ -825,6 +841,27 @@ $(BINDIR)/c7generator_2: c7generator_2.cpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
  $(INCDIR)/c7generator_r2.hpp $(INCDIR)/c7context.hpp
+$(BINDIR)/c7generator_3: c7generator_3.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
+ $(INCDIR)/c7generator_r2.hpp $(INCDIR)/c7context.hpp
+$(BINDIR)/c7hash_pair: c7hash_pair.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
+ $(INCDIR)/c7hash/pair.hpp
+$(BINDIR)/c7hash_tuple: c7hash_tuple.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
+ $(INCDIR)/c7hash/tuple.hpp
 $(BINDIR)/c7json_1: c7json_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
@@ -1149,6 +1186,8 @@ $(BINDIR)/c7socket_5: c7socket_5.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7string/c_str.hpp $(INCDIR)/c7nseq/enumerate.hpp \
  $(INCDIR)/c7nseq/_cmn.hpp $(INCDIR)/c7nseq/_iter_ops.hpp
 $(BINDIR)/c7sort_1: c7sort_1.cpp $(INCDIR)/c7sort.hpp \
+ $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp
+$(BINDIR)/c7sort_2: c7sort_2.cpp $(INCDIR)/c7sort.hpp \
  $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp
 $(BINDIR)/c7string_1: c7string_1.cpp $(INCDIR)/c7format.hpp \
  $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp $(INCDIR)/c7defer.hpp \
