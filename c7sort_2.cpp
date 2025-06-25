@@ -159,7 +159,7 @@ static void testround(void (*make_data)(elmvec_t&))
 	     });
 #endif
 
-    testsort("hsort_st",
+    testsort("hsort_st    ",
 	     [](elmit_t left, ptrdiff_t n) {
 		 c7::hsort_st(left, n);
 	     },
@@ -167,8 +167,7 @@ static void testround(void (*make_data)(elmvec_t&))
 		 c7::hsort_st(left, n, gtope);
 	     });
 
-#if 0
-    testsort("msort_st",
+    testsort("msort_st[mv]",
 	     [](elmit_t left, ptrdiff_t n) {
 		 c7::msort_st(MsortBuf.begin(), left, n);
 	     },
@@ -176,16 +175,15 @@ static void testround(void (*make_data)(elmvec_t&))
 		 c7::msort_st(MsortBuf.data(), left, n, gtope);
 	     });
 
-    testsort("msort_mt",
+    testsort("msort_mt[mv]",
 	     [](elmit_t left, ptrdiff_t n) {
-		 c7::msort_mt(MsortBuf.begin(), left, n, 3);
+		 c7::msort_mt_mv(MsortBuf.begin(), left, n, 3);
 	     },
 	     [](elm_t* left, ptrdiff_t n) {
-		 c7::msort_mt(MsortBuf.data(), left, n, gtope, 3);
+		 c7::msort_mt_mv(MsortBuf.data(), left, n, gtope, 3);
 	     });
-#endif
 
-    testsort("qsort_st",
+    testsort("qsort_st[mv]",
 	     [](elmit_t left, ptrdiff_t n) {
 		 c7::qsort_st_mv(left, n);
 	     },
@@ -193,7 +191,7 @@ static void testround(void (*make_data)(elmvec_t&))
 		 c7::qsort_st_mv(left, n, gtope);
 	     });
 
-    testsort("qsort_mt",
+    testsort("qsort_mt[mv]",
 	     [](elmit_t left, ptrdiff_t n) {
 		 c7::qsort_mt_mv(left, n, 3);
 	     },
@@ -201,7 +199,7 @@ static void testround(void (*make_data)(elmvec_t&))
 		 c7::qsort_mt_mv(left, n, gtope, 3);
 	     });
 
-    testsort("rsort_st",
+    testsort("rsort_st    ",
 	     [](elmit_t left, ptrdiff_t n) {
 		 c7::rsort_st(left, n, (uint32_t)-1, [](elm_t& e) {return e.key;});
 	     },
@@ -209,7 +207,7 @@ static void testround(void (*make_data)(elmvec_t&))
 		 c7::rsort_st(left, n, (uint32_t)-1, [](elm_t& e) {return ~e.key;});
 	     });
 
-    testsort("rsort_mt",
+    testsort("rsort_mt    ",
 	     [](elmit_t left, ptrdiff_t n) {
 		 c7::rsort_st(left, n, (uint32_t)-1, [](elm_t& e) {return e.key;}, 3);
 	     },
