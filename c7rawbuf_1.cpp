@@ -7,6 +7,13 @@
 using c7::p_;
 
 struct data_t {
+    data_t() {
+	s[0] = 0;
+    }
+    explicit data_t(const char *str) {
+	std::strcpy(s, str);
+    }
+
     char s[100];
 };
 
@@ -29,10 +36,8 @@ c7::fd test_1()
 	"hello", "world", "c++", "language"
     };
     for (auto a: args) {
-	data_t d;
-	(void)std::strcpy(d.s, a);
-	if (auto res = rb.push_back(d); !res) {
-	    c7error(res, "push_back: %{}", d.s);
+	if (auto res = rb.emplace_back(a); !res) {
+	    c7error(res, "push_back: %{}", a);
 	}
     }
 
