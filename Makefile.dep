@@ -1300,6 +1300,13 @@ $(BINDIR)/c7utils_1: c7utils_1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7utils/memory.hpp $(INCDIR)/c7utils/movable_capture.hpp \
  $(INCDIR)/c7utils/passwd.hpp $(INCDIR)/c7utils/spinlock.hpp \
  $(INCDIR)/c7utils/storage.hpp $(INCDIR)/c7utils/time.hpp
+$(BINDIR)/c7utils_as: c7utils_as.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
+ $(INCDIR)/c7utils/auto_restore.hpp
 $(BINDIR)/c7utils_tm: c7utils_tm.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
