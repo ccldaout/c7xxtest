@@ -29,11 +29,21 @@ int main()
 
     p_("N::%{}, off:%{}, gap:%{}, n:%{}", N, off, gap, n);
 
+    p_("int");
+    {
+	int i = 123;
+	c7::slice<int> si{i};
+	show(" si", si);
+    }
+
     p_("vector<int>");
     {
 	auto         iv = ns::range(N) | ns::to_vector();
 	const auto &civ = iv;
 	show(" iv", iv);
+
+	c7::slice<int> sv0{iv};
+	show("sv0", sv0);
 
 	auto sv = c7::make_slice(iv, off, gap, n);
 	show(" sv", sv);
