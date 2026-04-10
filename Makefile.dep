@@ -1222,17 +1222,27 @@ $(BINDIR)/c7thread_dp1: c7thread_dp1.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
  $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
- $(INCDIR)/c7thread/datapara.hpp $(INCDIR)/c7thread/thread.hpp \
- $(INCDIR)/c7thread/mask.hpp $(INCDIR)/c7thread/condvar.hpp
+ $(INCDIR)/c7thread/datapara.hpp $(INCDIR)/c7slice.hpp \
+ $(INCDIR)/c7thread/thread.hpp $(INCDIR)/c7thread/mask.hpp \
+ $(INCDIR)/c7thread/condvar.hpp
 $(BINDIR)/c7thread_dp2: c7thread_dp2.cpp $(INCDIR)/c7app.hpp \
  $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
  $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
  $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
  $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
  $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
- $(INCDIR)/c7thread/datapara_flex.hpp $(INCDIR)/c7thread/datapara.hpp \
+ $(INCDIR)/c7thread/datapara.hpp $(INCDIR)/c7slice.hpp \
  $(INCDIR)/c7thread/thread.hpp $(INCDIR)/c7thread/mask.hpp \
  $(INCDIR)/c7thread/condvar.hpp
+$(BINDIR)/c7thread_dp3: c7thread_dp3.cpp $(INCDIR)/c7app.hpp \
+ $(INCDIR)/c7result.hpp $(INCDIR)/c7common.hpp \
+ $(INCDIR)/_c7version.hpp $(INCDIR)/c7format.hpp $(INCDIR)/c7defer.hpp \
+ $(INCDIR)/c7format/format_r2.hpp $(INCDIR)/c7format/format_cmn.hpp \
+ $(INCDIR)/c7delegate.hpp $(INCDIR)/c7typefunc.hpp \
+ $(INCDIR)/c7strmbuf/strref.hpp $(INCDIR)/c7format/format_api.hpp \
+ $(INCDIR)/c7thread/datapara_flex.hpp $(INCDIR)/c7thread/datapara.hpp \
+ $(INCDIR)/c7slice.hpp $(INCDIR)/c7thread/thread.hpp \
+ $(INCDIR)/c7thread/mask.hpp $(INCDIR)/c7thread/condvar.hpp
 $(BINDIR)/c7thread_jq: c7thread_jq.cpp $(INCDIR)/c7thread/jobque.hpp \
  $(INCDIR)/c7common.hpp $(INCDIR)/_c7version.hpp \
  $(INCDIR)/c7thread/_queue.hpp $(INCDIR)/c7result.hpp \
